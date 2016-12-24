@@ -43,6 +43,7 @@ namespace :deploy do
       cron_lines = []
       reboot_scripts = []
 
+      # Parse config file into scripts
       yaml_config.each do |script|
         if script.key?('schedule')
           script_path = "#{current_path}/lib/scripts/#{script['name']}"
@@ -52,19 +53,27 @@ namespace :deploy do
         end
       end
 
+      # Setup daemon file
       daemon = ["require 'daemons'"]
       daemon += reboot_scripts.map do |script, script_path|
-        "Daemons.run('#{script_path}', { keep_pid_files: true, dir: '#{shared_path}/pids', log_output: true, logfilename: '#{shared_path}/log/#{script['name']}.log' })"
+        hash_options = {
+          keep_pid_files: true,
+          dir_mode: :normal,
+          dir: "#{shared_path}/pids",
+          log_output: true,
+          logfilename: "#{shared_path}/log/#{script['name']}.log"
+        }.inspect
+        "Daemons.run('#{script_path}', #{hash_options})"
       end
       upload! StringIO.new(daemon.join("\n")), "/etc/daemon"
 
+      # Restart Daemon
+      execute "/usr/local/bin/ruby /etc/daemon restart"
+
+      # Update/Setup Crontab
       new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /usr/local/bin/ruby /etc/daemon restart" + "\n"
       upload! StringIO.new(new_crontab), "#{current_path}/config/crontab"
       execute "crontab < #{current_path}/config/crontab"
-
-      within "/etc" do
-        execute "/usr/local/bin/ruby /etc/daemon restart"
-      end
     end
   end
 
