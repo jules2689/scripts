@@ -40,15 +40,23 @@ namespace :deploy do
     on roles(:app) do
       within current_path do
         cron_lines = []
+        reboot_scripts = []
+
         yaml_config.each do |script|
           if script.key?('schedule')
             script_path = "#{current_path}/lib/scripts/#{script['name']}"
-            cron_lines << "#{script['schedule']} ruby #{script_path} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
+            cron_lines << "#{script['schedule']} /usr/local/bin/ruby #{script_path} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
           elsif script.key?('background')
-            execute "nohup #{current_path}/lib/scripts/#{script['name']} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
+            reboot_scripts << script_path
           end
         end
-        new_crontab = cron_lines.join("\n") + "\n"
+
+        daemon = ["require 'daemons'"]
+        daemon += reboot_scripts.map { |s| "Daemon.run(#{s}" }
+        upload! StringIO.new(daemon), "/etc/daemon"
+        execute "/usr/local/bin/ruby /etc/daemon"
+
+        new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /etc/daemon"
         upload! StringIO.new(new_crontab), "#{current_path}/config/crontab"
         execute "crontab < #{current_path}/config/crontab"
       end
