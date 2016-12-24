@@ -10,6 +10,7 @@ GEM
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
     capistrano-harrow (0.5.3)
+    ejson (1.0.2)
     i18n (0.7.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -24,6 +25,7 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano (~> 3.7)
+  ejson
 
 BUNDLED WITH
    1.13.6
