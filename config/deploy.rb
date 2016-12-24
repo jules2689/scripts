@@ -55,12 +55,12 @@ namespace :deploy do
 
         daemon = ["require 'daemons'"]
         daemon += reboot_scripts.map do |script, script_path|
-          "Daemon.run('#{script_path}', { log_output: true, logfilename: '#{shared_path}/log/#{script['name']}.log' })"
+          "Daemons.run('#{script_path}', { log_output: true, logfilename: '#{shared_path}/log/#{script['name']}.log' })"
         end
         upload! StringIO.new(daemon.join("\n")), "/etc/daemon"
-        execute "/usr/local/bin/ruby /etc/daemon"
+        execute "/usr/local/bin/ruby /etc/daemon restart"
 
-        new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /etc/daemon"
+        new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /usr/local/bin/ruby /etc/daemon restart" + "\n"
         upload! StringIO.new(new_crontab), "#{current_path}/config/crontab"
         execute "crontab < #{current_path}/config/crontab"
       end
