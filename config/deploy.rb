@@ -1,6 +1,3 @@
-require 'byebug'
-
-# config valid only for current version of Capistrano
 lock '3.7.1'
 
 set :application,     'scripts'
@@ -46,9 +43,9 @@ namespace :deploy do
         yaml_config.each do |script|
           if script.key?('schedule')
             script_path = "#{current_path}/lib/scripts/#{script['name']}"
-            cron_lines << "#{script['schedule']} #{script_path} >#{shared_path}/log/#{script['name']}.log"
+            cron_lines << "#{script['schedule']} ruby #{script_path} >#{shared_path}/log/#{script['name']}.log"
           elsif script.key?('background')
-            execute :ruby, "#{current_path}/lib/scripts/#{script['name']} >#{shared_path}/log/#{script['name']}.log &"
+            execute "nohup #{current_path}/lib/scripts/#{script['name']} >#{shared_path}/log/#{script['name']}.log &> /dev/null &"
           end
         end
         new_crontab = cron_lines.join("\n") + "\n"
@@ -58,49 +55,7 @@ namespace :deploy do
     end
   end
 
-  # desc "Start Job"
-  # task :start do
-  #   on roles(:app) do
-  #     within current_path do
-  #       with RACK_ENV: fetch(:environment) do
-  #         latest_release = capture("ls #{fetch(:deploy_to)}/releases | sort").split("\n").last
-  #         puts "Latest Release was #{latest_release}"
-  #         execute :bundle, :exec, '/opt/rubies/ruby-2.3.1/bin/ruby',
-  #           "#{fetch(:deploy_to)}/releases/#{latest_release}/slack_eyes_daemon.rb", 'start'
-  #       end
-  #     end
-  #   end
-  # end
-
-  # desc "Kill the old Job"
-  # task :kill_old_app do
-  #   on roles(:app) do
-  #     within current_path do
-  #       with RACK_ENV: fetch(:environment) do
-  #         latest_release = capture("ls #{fetch(:deploy_to)}/releases | sort").split("\n").last
-  #         puts "Latest Release was #{latest_release}"
-  #         execute "kill -9 $(cat #{fetch(:deploy_to)}/releases/#{latest_release}/config.ru.pid) || true"
-  #       end
-  #     end
-  #   end
-  # end
-
-  # desc "Check that the job is running"
-  # task :check_running do
-  #   on roles(:app) do
-  #     within current_path do
-  #       with RACK_ENV: fetch(:environment) do
-  #         latest_release = capture("ls #{fetch(:deploy_to)}/releases | sort").split("\n").last
-  #         puts "Latest Release was #{latest_release}"
-  #         execute :bundle, :exec, '/opt/rubies/ruby-2.3.1/bin/ruby',
-  #           "#{fetch(:deploy_to)}/releases/#{latest_release}/slack_eyes_daemon.rb", 'status'
-  #       end
-  #     end
-  #   end
-  # end
-
   before :starting,  :check_revision
   before :starting,  'secrets:sync'
   before :finishing, :start_scripts
-  # after  :finishing, :check_running
 end
