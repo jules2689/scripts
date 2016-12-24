@@ -6,7 +6,7 @@ set :application,     'scripts'
 set :repo_url,        'git@github.com:jules2689/scripts.git'
 set :user,            'root'
 set :chruby_ruby,     'ruby-2.3.1'
-set :linked_dirs,     %w(log)
+set :linked_dirs,     %w(log pids)
 set :environment,     'production'
 set :linked_files,    %w(config/secrets.production.ejson)
 
@@ -40,31 +40,30 @@ namespace :deploy do
   task :start_scripts do
     yaml_config = YAML.load_file('config/config.yml')
     on roles(:app) do
-      within current_path do
-        cron_lines = []
-        reboot_scripts = []
+      cron_lines = []
+      reboot_scripts = []
 
-        yaml_config.each do |script|
-          if script.key?('schedule')
-            script_path = "#{current_path}/lib/scripts/#{script['name']}"
-            cron_lines << "#{script['schedule']} /usr/local/bin/ruby #{script_path} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
-          elsif script.key?('background')
-            reboot_scripts << [script, "#{current_path}/lib/scripts/#{script['name']}"]
-          end
+      yaml_config.each do |script|
+        if script.key?('schedule')
+          script_path = "#{current_path}/lib/scripts/#{script['name']}"
+          cron_lines << "#{script['schedule']} /usr/local/bin/ruby #{script_path} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
+        elsif script.key?('background')
+          reboot_scripts << [script, "#{current_path}/lib/scripts/#{script['name']}"]
         end
+      end
 
-        daemon = ["require 'daemons'"]
-        daemon += reboot_scripts.map do |script, script_path|
-          "Daemons.run('#{script_path}', { log_output: true, logfilename: '#{shared_path}/log/#{script['name']}.log' })"
-        end
-        upload! StringIO.new(daemon.join("\n")), "/etc/daemon"
-        within "/etc" do
-          execute "/usr/local/bin/ruby /etc/daemon restart"
-        end
+      daemon = ["require 'daemons'"]
+      daemon += reboot_scripts.map do |script, script_path|
+        "Daemons.run('#{script_path}', { keep_pid_files: true, dir: '#{shared_path}/pids', log_output: true, logfilename: '#{shared_path}/log/#{script['name']}.log' })"
+      end
+      upload! StringIO.new(daemon.join("\n")), "/etc/daemon"
 
-        new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /usr/local/bin/ruby /etc/daemon restart" + "\n"
-        upload! StringIO.new(new_crontab), "#{current_path}/config/crontab"
-        execute "crontab < #{current_path}/config/crontab"
+      new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /usr/local/bin/ruby /etc/daemon restart" + "\n"
+      upload! StringIO.new(new_crontab), "#{current_path}/config/crontab"
+      execute "crontab < #{current_path}/config/crontab"
+
+      within "/etc" do
+        execute "/usr/local/bin/ruby /etc/daemon restart"
       end
     end
   end
