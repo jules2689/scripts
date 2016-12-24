@@ -35,8 +35,28 @@ namespace :deploy do
     end
   end
 
-  yaml_config = YAML.load('config/config.yml')
-  puts yaml_config.inspect
+  desc "Start Scripts"
+  task :start_scripts do
+    yaml_config = YAML.load_file('config/config.yml')
+    on roles(:app) do
+      within current_path do
+        yaml_config.each do |script|
+          if script.key?('schedule')
+            cron_line = "#{script['schedule']} #{current_path}/lib/scripts/#{script['name']}"
+            crontab_add(cron_line)
+          elsif script.key?('background')
+            execute :ruby, "#{current_path}/lib/scripts/#{script['name']} &"
+          end
+        end
+      end
+    end
+  end
+
+  def crontab_add(line)
+    config = capture(%(crontab -l).split("\n"))
+    return if config.include?(line)
+    run %((crontab -l; echo "#{line}") | crontab -)
+  end
 
   # desc "Start Job"
   # task :start do
@@ -80,8 +100,7 @@ namespace :deploy do
   # end
 
   before :starting,  :check_revision
-  before :starting,  :kill_old_app
   before :starting,  'secrets:sync'
-  before :finishing, :start
-  after  :finishing, :check_running
+  # before :finishing, :start
+  # after  :finishing, :check_running
 end
