@@ -1,3 +1,5 @@
+require 'byebug'
+
 lock '3.7.1'
 
 set :application,     'scripts'
@@ -47,15 +49,15 @@ namespace :deploy do
             script_path = "#{current_path}/lib/scripts/#{script['name']}"
             cron_lines << "#{script['schedule']} /usr/local/bin/ruby #{script_path} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
           elsif script.key?('background')
-            reboot_scripts << [script, script_path]
+            reboot_scripts << [script, "#{current_path}/lib/scripts/#{script['name']}"]
           end
         end
 
         daemon = ["require 'daemons'"]
-        daemon += reboot_scripts.map do |s|
-          "Daemon.run(#{s}, { log_output: true, logfilename: '#{shared_path}/log/#{script['name']}.log' })"
+        daemon += reboot_scripts.map do |script, script_path|
+          "Daemon.run('#{script_path}', { log_output: true, logfilename: '#{shared_path}/log/#{script['name']}.log' })"
         end
-        upload! StringIO.new(daemon), "/etc/daemon"
+        upload! StringIO.new(daemon.join("\n")), "/etc/daemon"
         execute "/usr/local/bin/ruby /etc/daemon"
 
         new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /etc/daemon"

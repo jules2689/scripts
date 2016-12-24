@@ -3159,3 +3159,740 @@
   INFO [9787b6a7] Running /usr/bin/env echo "Branch master (at 2cf3a75ec1b4d55dfad2610ca6d06c15dedde4c0) deployed as release 20161224212727 by juliannadeau" >> /var/www/scripts/revisions.log as root@159.203.60.120
  DEBUG [9787b6a7] Command: cd /var/www/scripts/releases && /usr/bin/env echo "Branch master (at 2cf3a75ec1b4d55dfad2610ca6d06c15dedde4c0) deployed as release 20161224212727 by juliannadeau" >> /var/www/scripts/revisions.log
   INFO [9787b6a7] Finished in 0.131 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-12-24 16:39:37 -0500 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [894ea922] Running if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [894ea922] Command: if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi
+ DEBUG [894ea922] Finished in 0.731 seconds with exit status 0 (successful).
+ DEBUG Uploading /var/www/scripts/shared/config/secrets.production.ejson 0.0%
+  INFO Uploading /var/www/scripts/shared/config/secrets.production.ejson 100.0%
+  INFO [8effcfec] Running /usr/bin/env mkdir -p /tmp as root@159.203.60.120
+ DEBUG [8effcfec] Command: /usr/bin/env mkdir -p /tmp
+  INFO [8effcfec] Finished in 0.133 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 0.0%
+  INFO Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 100.0%
+  INFO [7aa01b69] Running /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh as root@159.203.60.120
+ DEBUG [7aa01b69] Command: /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh
+  INFO [7aa01b69] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO [1defd7aa] Running /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git as root@159.203.60.120
+ DEBUG [1defd7aa] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git )
+ DEBUG [1defd7aa] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4	refs/heads/master
+  INFO [1defd7aa] Finished in 0.620 seconds with exit status 0 (successful).
+  INFO [4dc8a1f8] Running /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases as root@159.203.60.120
+ DEBUG [4dc8a1f8] Command: /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases
+  INFO [4dc8a1f8] Finished in 0.136 seconds with exit status 0 (successful).
+  INFO [43b53273] Running /usr/bin/env mkdir -p /var/www/scripts/shared/log as root@159.203.60.120
+ DEBUG [43b53273] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/log
+  INFO [43b53273] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO [8b75a91e] Running /usr/bin/env mkdir -p /var/www/scripts/shared/config as root@159.203.60.120
+ DEBUG [8b75a91e] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/config
+  INFO [8b75a91e] Finished in 0.113 seconds with exit status 0 (successful).
+ DEBUG [b83c250b] Running [ -f /var/www/scripts/shared/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [b83c250b] Command: [ -f /var/www/scripts/shared/config/secrets.production.ejson ]
+ DEBUG [b83c250b] Finished in 0.113 seconds with exit status 0 (successful).
+ DEBUG [cd8c161f] Running [ -f /var/www/scripts/current/REVISION ] as root@159.203.60.120
+ DEBUG [cd8c161f] Command: [ -f /var/www/scripts/current/REVISION ]
+ DEBUG [cd8c161f] Finished in 0.117 seconds with exit status 0 (successful).
+ DEBUG [91dba4c9] Running /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null as root@159.203.60.120
+ DEBUG [91dba4c9] Command: /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null
+ DEBUG [91dba4c9] 	2cf3a75ec1b4d55dfad2610ca6d06c15dedde4c0
+ DEBUG [91dba4c9] Finished in 0.127 seconds with exit status 0 (successful).
+ DEBUG [a45bbfb7] Running [ -f /var/www/scripts/repo/HEAD ] as root@159.203.60.120
+ DEBUG [a45bbfb7] Command: [ -f /var/www/scripts/repo/HEAD ]
+ DEBUG [a45bbfb7] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/scripts/repo
+ DEBUG [97293dd7] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [97293dd7] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [97293dd7] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [959ebe68] Running /usr/bin/env git remote update --prune as root@159.203.60.120
+ DEBUG [959ebe68] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [959ebe68] 	Fetching origin
+ DEBUG [959ebe68] 	From github.com:jules2689/scripts
+   2cf3a75..72cf4e7  master     -> master
+  INFO [959ebe68] Finished in 0.850 seconds with exit status 0 (successful).
+ DEBUG [19389678] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [19389678] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [19389678] Finished in 0.139 seconds with exit status 0 (successful).
+  INFO [eee7697a] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224213940 as root@159.203.60.120
+ DEBUG [eee7697a] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env mkdir -p /var/www/scripts/releases/20161224213940 )
+  INFO [eee7697a] Finished in 0.134 seconds with exit status 0 (successful).
+  INFO [a95bd0c2] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224213940 as root@159.203.60.120
+ DEBUG [a95bd0c2] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224213940 )
+  INFO [a95bd0c2] Finished in 0.123 seconds with exit status 0 (successful).
+ DEBUG [9dfa99d0] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [9dfa99d0] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [9dfa99d0] Finished in 0.109 seconds with exit status 0 (successful).
+ DEBUG [499d18dc] Running /usr/bin/env git rev-list --max-count=1 master as root@159.203.60.120
+ DEBUG [499d18dc] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [499d18dc] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [499d18dc] Finished in 0.130 seconds with exit status 0 (successful).
+ DEBUG [340d1a36] Running if test ! -d /var/www/scripts/releases/20161224213940; then echo "Directory does not exist '/var/www/scripts/releases/20161224213940'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [340d1a36] Command: if test ! -d /var/www/scripts/releases/20161224213940; then echo "Directory does not exist '/var/www/scripts/releases/20161224213940'" 1>&2; false; fi
+ DEBUG [340d1a36] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [33982d4a] Running /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION as root@159.203.60.120
+ DEBUG [33982d4a] Command: cd /var/www/scripts/releases/20161224213940 && /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION
+  INFO [33982d4a] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [13ef70b2] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224213940/config as root@159.203.60.120
+ DEBUG [13ef70b2] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224213940/config
+  INFO [13ef70b2] Finished in 0.114 seconds with exit status 0 (successful).
+ DEBUG [79ad1e21] Running [ -L /var/www/scripts/releases/20161224213940/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [79ad1e21] Command: [ -L /var/www/scripts/releases/20161224213940/config/secrets.production.ejson ]
+ DEBUG [79ad1e21] Finished in 0.117 seconds with exit status 1 (failed).
+ DEBUG [501c594a] Running [ -f /var/www/scripts/releases/20161224213940/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [501c594a] Command: [ -f /var/www/scripts/releases/20161224213940/config/secrets.production.ejson ]
+ DEBUG [501c594a] Finished in 0.105 seconds with exit status 0 (successful).
+  INFO [8ce4a671] Running /usr/bin/env rm /var/www/scripts/releases/20161224213940/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [8ce4a671] Command: /usr/bin/env rm /var/www/scripts/releases/20161224213940/config/secrets.production.ejson
+  INFO [8ce4a671] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [d49984d3] Running /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224213940/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [d49984d3] Command: /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224213940/config/secrets.production.ejson
+  INFO [d49984d3] Finished in 0.118 seconds with exit status 0 (successful).
+  INFO [31c9592a] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224213940 as root@159.203.60.120
+ DEBUG [31c9592a] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224213940
+  INFO [31c9592a] Finished in 0.109 seconds with exit status 0 (successful).
+ DEBUG [a6d69b6b] Running [ -L /var/www/scripts/releases/20161224213940/log ] as root@159.203.60.120
+ DEBUG [a6d69b6b] Command: [ -L /var/www/scripts/releases/20161224213940/log ]
+ DEBUG [a6d69b6b] Finished in 0.116 seconds with exit status 1 (failed).
+ DEBUG [1e7838e0] Running [ -d /var/www/scripts/releases/20161224213940/log ] as root@159.203.60.120
+ DEBUG [1e7838e0] Command: [ -d /var/www/scripts/releases/20161224213940/log ]
+ DEBUG [1e7838e0] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [a14e0195] Running /usr/bin/env rm -rf /var/www/scripts/releases/20161224213940/log as root@159.203.60.120
+ DEBUG [a14e0195] Command: /usr/bin/env rm -rf /var/www/scripts/releases/20161224213940/log
+  INFO [a14e0195] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO [8d8c7dd4] Running /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224213940/log as root@159.203.60.120
+ DEBUG [8d8c7dd4] Command: /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224213940/log
+  INFO [8d8c7dd4] Finished in 0.116 seconds with exit status 0 (successful).
+ DEBUG [0827e776] Running if test ! -d /var/www/scripts/releases/20161224213940; then echo "Directory does not exist '/var/www/scripts/releases/20161224213940'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [0827e776] Command: if test ! -d /var/www/scripts/releases/20161224213940; then echo "Directory does not exist '/var/www/scripts/releases/20161224213940'" 1>&2; false; fi
+ DEBUG [0827e776] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [364143f8] Running /usr/bin/env bundle check --path /var/www/scripts/shared/bundle as root@159.203.60.120
+ DEBUG [364143f8] Command: cd /var/www/scripts/releases/20161224213940 && /usr/bin/env bundle check --path /var/www/scripts/shared/bundle
+ DEBUG [364143f8] 	/usr/bin/env: 
+ DEBUG [364143f8] 	‘bundle’
+ DEBUG [364143f8] 	: No such file or directory
+ DEBUG [364143f8] 	
+ DEBUG [364143f8] Finished in 0.121 seconds with exit status 127 (failed).
+  INFO [63562c99] Running /usr/bin/env bundle install --path /var/www/scripts/shared/bundle --without development test --deployment --quiet as root@159.203.60.120
+ DEBUG [63562c99] Command: cd /var/www/scripts/releases/20161224213940 && /usr/bin/env bundle install --path /var/www/scripts/shared/bundle --without development test --deployment --quiet
+ DEBUG [63562c99] 	/usr/bin/env: 
+ DEBUG [63562c99] 	‘bundle’
+ DEBUG [63562c99] 	: No such file or directory
+ DEBUG [63562c99] 	
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-12-24 16:40:08 -0500 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [aa5a2437] Running if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [aa5a2437] Command: if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi
+ DEBUG [aa5a2437] Finished in 0.726 seconds with exit status 0 (successful).
+ DEBUG Uploading /var/www/scripts/shared/config/secrets.production.ejson 0.0%
+  INFO Uploading /var/www/scripts/shared/config/secrets.production.ejson 100.0%
+  INFO [6a83db98] Running /usr/bin/env mkdir -p /tmp as root@159.203.60.120
+ DEBUG [6a83db98] Command: /usr/bin/env mkdir -p /tmp
+  INFO [6a83db98] Finished in 0.134 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 0.0%
+  INFO Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 100.0%
+  INFO [40d0a6ed] Running /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh as root@159.203.60.120
+ DEBUG [40d0a6ed] Command: /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh
+  INFO [40d0a6ed] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [e0037cd9] Running /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git as root@159.203.60.120
+ DEBUG [e0037cd9] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git )
+ DEBUG [e0037cd9] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4	refs/heads/master
+  INFO [e0037cd9] Finished in 0.611 seconds with exit status 0 (successful).
+  INFO [c31708d9] Running /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases as root@159.203.60.120
+ DEBUG [c31708d9] Command: /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases
+  INFO [c31708d9] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [fdfe163a] Running /usr/bin/env mkdir -p /var/www/scripts/shared/log as root@159.203.60.120
+ DEBUG [fdfe163a] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/log
+  INFO [fdfe163a] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [6184fedb] Running /usr/bin/env mkdir -p /var/www/scripts/shared/config as root@159.203.60.120
+ DEBUG [6184fedb] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/config
+  INFO [6184fedb] Finished in 0.118 seconds with exit status 0 (successful).
+ DEBUG [bdbffe23] Running [ -f /var/www/scripts/shared/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [bdbffe23] Command: [ -f /var/www/scripts/shared/config/secrets.production.ejson ]
+ DEBUG [bdbffe23] Finished in 0.113 seconds with exit status 0 (successful).
+ DEBUG [33e6bfc6] Running [ -f /var/www/scripts/current/REVISION ] as root@159.203.60.120
+ DEBUG [33e6bfc6] Command: [ -f /var/www/scripts/current/REVISION ]
+ DEBUG [33e6bfc6] Finished in 0.111 seconds with exit status 0 (successful).
+ DEBUG [e1c26801] Running /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null as root@159.203.60.120
+ DEBUG [e1c26801] Command: /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null
+ DEBUG [e1c26801] 	2cf3a75ec1b4d55dfad2610ca6d06c15dedde4c0
+ DEBUG [e1c26801] Finished in 0.107 seconds with exit status 0 (successful).
+ DEBUG [726abbef] Running [ -f /var/www/scripts/repo/HEAD ] as root@159.203.60.120
+ DEBUG [726abbef] Command: [ -f /var/www/scripts/repo/HEAD ]
+ DEBUG [726abbef] Finished in 0.103 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/scripts/repo
+ DEBUG [c229d4c4] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [c229d4c4] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [c229d4c4] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [32b12b14] Running /usr/bin/env git remote update --prune as root@159.203.60.120
+ DEBUG [32b12b14] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [32b12b14] 	Fetching origin
+  INFO [32b12b14] Finished in 0.630 seconds with exit status 0 (successful).
+ DEBUG [de06409b] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [de06409b] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [de06409b] Finished in 0.133 seconds with exit status 0 (successful).
+  INFO [9bb5b0d8] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214012 as root@159.203.60.120
+ DEBUG [9bb5b0d8] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214012 )
+  INFO [9bb5b0d8] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [db322d80] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214012 as root@159.203.60.120
+ DEBUG [db322d80] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214012 )
+  INFO [db322d80] Finished in 0.143 seconds with exit status 0 (successful).
+ DEBUG [ee6909ab] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [ee6909ab] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [ee6909ab] Finished in 0.110 seconds with exit status 0 (successful).
+ DEBUG [9547d88c] Running /usr/bin/env git rev-list --max-count=1 master as root@159.203.60.120
+ DEBUG [9547d88c] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [9547d88c] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [9547d88c] Finished in 0.114 seconds with exit status 0 (successful).
+ DEBUG [a4db1b9c] Running if test ! -d /var/www/scripts/releases/20161224214012; then echo "Directory does not exist '/var/www/scripts/releases/20161224214012'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [a4db1b9c] Command: if test ! -d /var/www/scripts/releases/20161224214012; then echo "Directory does not exist '/var/www/scripts/releases/20161224214012'" 1>&2; false; fi
+ DEBUG [a4db1b9c] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [e81dd8bb] Running /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION as root@159.203.60.120
+ DEBUG [e81dd8bb] Command: cd /var/www/scripts/releases/20161224214012 && /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION
+  INFO [e81dd8bb] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [0aab90e0] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214012/config as root@159.203.60.120
+ DEBUG [0aab90e0] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214012/config
+  INFO [0aab90e0] Finished in 0.111 seconds with exit status 0 (successful).
+ DEBUG [354bf38d] Running [ -L /var/www/scripts/releases/20161224214012/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [354bf38d] Command: [ -L /var/www/scripts/releases/20161224214012/config/secrets.production.ejson ]
+ DEBUG [354bf38d] Finished in 0.115 seconds with exit status 1 (failed).
+ DEBUG [c71635f8] Running [ -f /var/www/scripts/releases/20161224214012/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [c71635f8] Command: [ -f /var/www/scripts/releases/20161224214012/config/secrets.production.ejson ]
+ DEBUG [c71635f8] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [19b4956d] Running /usr/bin/env rm /var/www/scripts/releases/20161224214012/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [19b4956d] Command: /usr/bin/env rm /var/www/scripts/releases/20161224214012/config/secrets.production.ejson
+  INFO [19b4956d] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [4ff64be4] Running /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214012/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [4ff64be4] Command: /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214012/config/secrets.production.ejson
+  INFO [4ff64be4] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [9b29862c] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214012 as root@159.203.60.120
+ DEBUG [9b29862c] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214012
+  INFO [9b29862c] Finished in 0.114 seconds with exit status 0 (successful).
+ DEBUG [ac4d56d4] Running [ -L /var/www/scripts/releases/20161224214012/log ] as root@159.203.60.120
+ DEBUG [ac4d56d4] Command: [ -L /var/www/scripts/releases/20161224214012/log ]
+ DEBUG [ac4d56d4] Finished in 0.120 seconds with exit status 1 (failed).
+ DEBUG [51ffb15e] Running [ -d /var/www/scripts/releases/20161224214012/log ] as root@159.203.60.120
+ DEBUG [51ffb15e] Command: [ -d /var/www/scripts/releases/20161224214012/log ]
+ DEBUG [51ffb15e] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [4ba357a3] Running /usr/bin/env rm -rf /var/www/scripts/releases/20161224214012/log as root@159.203.60.120
+ DEBUG [4ba357a3] Command: /usr/bin/env rm -rf /var/www/scripts/releases/20161224214012/log
+  INFO [4ba357a3] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [fc3249c0] Running /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214012/log as root@159.203.60.120
+ DEBUG [fc3249c0] Command: /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214012/log
+  INFO [fc3249c0] Finished in 0.114 seconds with exit status 0 (successful).
+ DEBUG [70bff6c4] Running if test ! -d /var/www/scripts/releases/20161224214012; then echo "Directory does not exist '/var/www/scripts/releases/20161224214012'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [70bff6c4] Command: if test ! -d /var/www/scripts/releases/20161224214012; then echo "Directory does not exist '/var/www/scripts/releases/20161224214012'" 1>&2; false; fi
+ DEBUG [70bff6c4] Finished in 0.116 seconds with exit status 0 (successful).
+ DEBUG [ad7022d0] Running /usr/bin/env bundle check --path /var/www/scripts/shared/bundle as root@159.203.60.120
+ DEBUG [ad7022d0] Command: cd /var/www/scripts/releases/20161224214012 && /usr/bin/env bundle check --path /var/www/scripts/shared/bundle
+ DEBUG [ad7022d0] 	The following gems are missing
+ DEBUG [ad7022d0] 	 * rake (12.0.0)
+ DEBUG [ad7022d0] 	 * net-ssh (3.2.0)
+ DEBUG [ad7022d0] 	 * net-scp (1.2.1)
+ DEBUG [ad7022d0] 	 * sshkit (1.11.5)
+ DEBUG [ad7022d0] 	 * airbrussh (1.1.1)
+ DEBUG [ad7022d0] 	 * byebug (9.0.6)
+ DEBUG [ad7022d0] 	 * capistrano-harrow (0.5.3)
+ DEBUG [ad7022d0] 	 * i18n (0.7.0)
+ DEBUG [ad7022d0] 	 * capistrano (3.7.1)
+ DEBUG [ad7022d0] 	 * capistrano-bundler (1.2.0)
+ DEBUG [ad7022d0] 	 * ejson (1.0.2)
+ DEBUG [ad7022d0] 	Install missing gems with `bundle install`
+ DEBUG [ad7022d0] Finished in 0.671 seconds with exit status 1 (failed).
+  INFO [c73dab23] Running /usr/bin/env bundle install --path /var/www/scripts/shared/bundle --without development test --deployment --quiet as root@159.203.60.120
+ DEBUG [c73dab23] Command: cd /var/www/scripts/releases/20161224214012 && /usr/bin/env bundle install --path /var/www/scripts/shared/bundle --without development test --deployment --quiet
+  INFO [c73dab23] Finished in 10.635 seconds with exit status 0 (successful).
+  INFO [243c6e27] Running /usr/bin/env ln -s /var/www/scripts/releases/20161224214012 /var/www/scripts/releases/current as root@159.203.60.120
+ DEBUG [243c6e27] Command: /usr/bin/env ln -s /var/www/scripts/releases/20161224214012 /var/www/scripts/releases/current
+  INFO [243c6e27] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [f6c9132a] Running /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts as root@159.203.60.120
+ DEBUG [f6c9132a] Command: /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts
+  INFO [f6c9132a] Finished in 0.120 seconds with exit status 0 (successful).
+ DEBUG [ff03c394] Running if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [ff03c394] Command: if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi
+ DEBUG [ff03c394] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-12-24 16:40:51 -0500 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [944f13a5] Running if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [944f13a5] Command: if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi
+ DEBUG [944f13a5] Finished in 0.730 seconds with exit status 0 (successful).
+ DEBUG Uploading /var/www/scripts/shared/config/secrets.production.ejson 0.0%
+  INFO Uploading /var/www/scripts/shared/config/secrets.production.ejson 100.0%
+  INFO [510b1a58] Running /usr/bin/env mkdir -p /tmp as root@159.203.60.120
+ DEBUG [510b1a58] Command: /usr/bin/env mkdir -p /tmp
+  INFO [510b1a58] Finished in 0.132 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 0.0%
+  INFO Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 100.0%
+  INFO [114470c5] Running /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh as root@159.203.60.120
+ DEBUG [114470c5] Command: /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh
+  INFO [114470c5] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [1d813196] Running /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git as root@159.203.60.120
+ DEBUG [1d813196] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git )
+ DEBUG [1d813196] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4	refs/heads/master
+  INFO [1d813196] Finished in 0.652 seconds with exit status 0 (successful).
+  INFO [68873959] Running /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases as root@159.203.60.120
+ DEBUG [68873959] Command: /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases
+  INFO [68873959] Finished in 0.133 seconds with exit status 0 (successful).
+  INFO [8168bbb9] Running /usr/bin/env mkdir -p /var/www/scripts/shared/log as root@159.203.60.120
+ DEBUG [8168bbb9] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/log
+  INFO [8168bbb9] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [59df58f0] Running /usr/bin/env mkdir -p /var/www/scripts/shared/config as root@159.203.60.120
+ DEBUG [59df58f0] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/config
+  INFO [59df58f0] Finished in 0.115 seconds with exit status 0 (successful).
+ DEBUG [14987b0d] Running [ -f /var/www/scripts/shared/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [14987b0d] Command: [ -f /var/www/scripts/shared/config/secrets.production.ejson ]
+ DEBUG [14987b0d] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [768336f7] Running [ -f /var/www/scripts/current/REVISION ] as root@159.203.60.120
+ DEBUG [768336f7] Command: [ -f /var/www/scripts/current/REVISION ]
+ DEBUG [768336f7] Finished in 0.116 seconds with exit status 0 (successful).
+ DEBUG [5dc18961] Running /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null as root@159.203.60.120
+ DEBUG [5dc18961] Command: /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null
+ DEBUG [5dc18961] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [5dc18961] Finished in 0.114 seconds with exit status 0 (successful).
+ DEBUG [991eb05f] Running [ -f /var/www/scripts/repo/HEAD ] as root@159.203.60.120
+ DEBUG [991eb05f] Command: [ -f /var/www/scripts/repo/HEAD ]
+ DEBUG [991eb05f] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/scripts/repo
+ DEBUG [0d301280] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [0d301280] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [0d301280] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [69554e32] Running /usr/bin/env git remote update --prune as root@159.203.60.120
+ DEBUG [69554e32] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [69554e32] 	Fetching origin
+  INFO [69554e32] Finished in 0.626 seconds with exit status 0 (successful).
+ DEBUG [8fddf87b] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [8fddf87b] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [8fddf87b] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [f31c1373] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214055 as root@159.203.60.120
+ DEBUG [f31c1373] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214055 )
+  INFO [f31c1373] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO [db6526da] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214055 as root@159.203.60.120
+ DEBUG [db6526da] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214055 )
+  INFO [db6526da] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [12e1c8ef] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [12e1c8ef] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [12e1c8ef] Finished in 0.117 seconds with exit status 0 (successful).
+ DEBUG [a2209fe2] Running /usr/bin/env git rev-list --max-count=1 master as root@159.203.60.120
+ DEBUG [a2209fe2] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [a2209fe2] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [a2209fe2] Finished in 0.112 seconds with exit status 0 (successful).
+ DEBUG [906e314e] Running if test ! -d /var/www/scripts/releases/20161224214055; then echo "Directory does not exist '/var/www/scripts/releases/20161224214055'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [906e314e] Command: if test ! -d /var/www/scripts/releases/20161224214055; then echo "Directory does not exist '/var/www/scripts/releases/20161224214055'" 1>&2; false; fi
+ DEBUG [906e314e] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [490b7108] Running /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION as root@159.203.60.120
+ DEBUG [490b7108] Command: cd /var/www/scripts/releases/20161224214055 && /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION
+  INFO [490b7108] Finished in 0.118 seconds with exit status 0 (successful).
+  INFO [f3a0ef10] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214055/config as root@159.203.60.120
+ DEBUG [f3a0ef10] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214055/config
+  INFO [f3a0ef10] Finished in 0.117 seconds with exit status 0 (successful).
+ DEBUG [b4ab7f35] Running [ -L /var/www/scripts/releases/20161224214055/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [b4ab7f35] Command: [ -L /var/www/scripts/releases/20161224214055/config/secrets.production.ejson ]
+ DEBUG [b4ab7f35] Finished in 0.116 seconds with exit status 1 (failed).
+ DEBUG [fc2e0f5f] Running [ -f /var/www/scripts/releases/20161224214055/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [fc2e0f5f] Command: [ -f /var/www/scripts/releases/20161224214055/config/secrets.production.ejson ]
+ DEBUG [fc2e0f5f] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [1ae94358] Running /usr/bin/env rm /var/www/scripts/releases/20161224214055/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [1ae94358] Command: /usr/bin/env rm /var/www/scripts/releases/20161224214055/config/secrets.production.ejson
+  INFO [1ae94358] Finished in 0.112 seconds with exit status 0 (successful).
+  INFO [7565abbc] Running /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214055/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [7565abbc] Command: /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214055/config/secrets.production.ejson
+  INFO [7565abbc] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [5d321793] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214055 as root@159.203.60.120
+ DEBUG [5d321793] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214055
+  INFO [5d321793] Finished in 0.108 seconds with exit status 0 (successful).
+ DEBUG [3a9831d4] Running [ -L /var/www/scripts/releases/20161224214055/log ] as root@159.203.60.120
+ DEBUG [3a9831d4] Command: [ -L /var/www/scripts/releases/20161224214055/log ]
+ DEBUG [3a9831d4] Finished in 0.111 seconds with exit status 1 (failed).
+ DEBUG [bd06cde2] Running [ -d /var/www/scripts/releases/20161224214055/log ] as root@159.203.60.120
+ DEBUG [bd06cde2] Command: [ -d /var/www/scripts/releases/20161224214055/log ]
+ DEBUG [bd06cde2] Finished in 0.105 seconds with exit status 0 (successful).
+  INFO [6693da66] Running /usr/bin/env rm -rf /var/www/scripts/releases/20161224214055/log as root@159.203.60.120
+ DEBUG [6693da66] Command: /usr/bin/env rm -rf /var/www/scripts/releases/20161224214055/log
+  INFO [6693da66] Finished in 0.119 seconds with exit status 0 (successful).
+  INFO [000d9676] Running /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214055/log as root@159.203.60.120
+ DEBUG [000d9676] Command: /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214055/log
+  INFO [000d9676] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [67da6724] Running if test ! -d /var/www/scripts/releases/20161224214055; then echo "Directory does not exist '/var/www/scripts/releases/20161224214055'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [67da6724] Command: if test ! -d /var/www/scripts/releases/20161224214055; then echo "Directory does not exist '/var/www/scripts/releases/20161224214055'" 1>&2; false; fi
+ DEBUG [67da6724] Finished in 0.118 seconds with exit status 0 (successful).
+ DEBUG [4a6a9b06] Running /usr/bin/env bundle check --path /var/www/scripts/shared/bundle as root@159.203.60.120
+ DEBUG [4a6a9b06] Command: cd /var/www/scripts/releases/20161224214055 && /usr/bin/env bundle check --path /var/www/scripts/shared/bundle
+ DEBUG [4a6a9b06] 	The Gemfile's dependencies are satisfied
+ DEBUG [4a6a9b06] Finished in 0.620 seconds with exit status 0 (successful).
+  INFO [552799a8] Running /usr/bin/env ln -s /var/www/scripts/releases/20161224214055 /var/www/scripts/releases/current as root@159.203.60.120
+ DEBUG [552799a8] Command: /usr/bin/env ln -s /var/www/scripts/releases/20161224214055 /var/www/scripts/releases/current
+  INFO [552799a8] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [530b3214] Running /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts as root@159.203.60.120
+ DEBUG [530b3214] Command: /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts
+  INFO [530b3214] Finished in 0.115 seconds with exit status 0 (successful).
+ DEBUG [83f94fb8] Running if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [83f94fb8] Command: if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi
+ DEBUG [83f94fb8] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-12-24 16:41:15 -0500 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [6ba2199f] Running if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [6ba2199f] Command: if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi
+ DEBUG [6ba2199f] Finished in 0.712 seconds with exit status 0 (successful).
+ DEBUG Uploading /var/www/scripts/shared/config/secrets.production.ejson 0.0%
+  INFO Uploading /var/www/scripts/shared/config/secrets.production.ejson 100.0%
+  INFO [3cd3c4cc] Running /usr/bin/env mkdir -p /tmp as root@159.203.60.120
+ DEBUG [3cd3c4cc] Command: /usr/bin/env mkdir -p /tmp
+  INFO [3cd3c4cc] Finished in 0.119 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 0.0%
+  INFO Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 100.0%
+  INFO [dc668f9c] Running /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh as root@159.203.60.120
+ DEBUG [dc668f9c] Command: /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh
+  INFO [dc668f9c] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [55f54347] Running /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git as root@159.203.60.120
+ DEBUG [55f54347] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git )
+ DEBUG [55f54347] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4	refs/heads/master
+  INFO [55f54347] Finished in 0.625 seconds with exit status 0 (successful).
+  INFO [2272caec] Running /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases as root@159.203.60.120
+ DEBUG [2272caec] Command: /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases
+  INFO [2272caec] Finished in 0.139 seconds with exit status 0 (successful).
+  INFO [528e433f] Running /usr/bin/env mkdir -p /var/www/scripts/shared/log as root@159.203.60.120
+ DEBUG [528e433f] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/log
+  INFO [528e433f] Finished in 0.118 seconds with exit status 0 (successful).
+  INFO [9a71f3e2] Running /usr/bin/env mkdir -p /var/www/scripts/shared/config as root@159.203.60.120
+ DEBUG [9a71f3e2] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/config
+  INFO [9a71f3e2] Finished in 0.111 seconds with exit status 0 (successful).
+ DEBUG [6143a57a] Running [ -f /var/www/scripts/shared/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [6143a57a] Command: [ -f /var/www/scripts/shared/config/secrets.production.ejson ]
+ DEBUG [6143a57a] Finished in 0.114 seconds with exit status 0 (successful).
+ DEBUG [52c1fa69] Running [ -f /var/www/scripts/current/REVISION ] as root@159.203.60.120
+ DEBUG [52c1fa69] Command: [ -f /var/www/scripts/current/REVISION ]
+ DEBUG [52c1fa69] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG [54fe63ef] Running /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null as root@159.203.60.120
+ DEBUG [54fe63ef] Command: /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null
+ DEBUG [54fe63ef] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [54fe63ef] Finished in 0.117 seconds with exit status 0 (successful).
+ DEBUG [bd89ea22] Running [ -f /var/www/scripts/repo/HEAD ] as root@159.203.60.120
+ DEBUG [bd89ea22] Command: [ -f /var/www/scripts/repo/HEAD ]
+ DEBUG [bd89ea22] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/scripts/repo
+ DEBUG [ef6266b3] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [ef6266b3] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [ef6266b3] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [5f386029] Running /usr/bin/env git remote update --prune as root@159.203.60.120
+ DEBUG [5f386029] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [5f386029] 	Fetching origin
+  INFO [5f386029] Finished in 0.641 seconds with exit status 0 (successful).
+ DEBUG [4485a91b] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [4485a91b] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [4485a91b] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO [a0643079] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214118 as root@159.203.60.120
+ DEBUG [a0643079] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214118 )
+  INFO [a0643079] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO [64485895] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214118 as root@159.203.60.120
+ DEBUG [64485895] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214118 )
+  INFO [64485895] Finished in 0.139 seconds with exit status 0 (successful).
+ DEBUG [3003596c] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [3003596c] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [3003596c] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [31b6af26] Running /usr/bin/env git rev-list --max-count=1 master as root@159.203.60.120
+ DEBUG [31b6af26] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [31b6af26] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [31b6af26] Finished in 0.132 seconds with exit status 0 (successful).
+ DEBUG [79a82c46] Running if test ! -d /var/www/scripts/releases/20161224214118; then echo "Directory does not exist '/var/www/scripts/releases/20161224214118'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [79a82c46] Command: if test ! -d /var/www/scripts/releases/20161224214118; then echo "Directory does not exist '/var/www/scripts/releases/20161224214118'" 1>&2; false; fi
+ DEBUG [79a82c46] Finished in 0.122 seconds with exit status 0 (successful).
+  INFO [31e6dbdc] Running /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION as root@159.203.60.120
+ DEBUG [31e6dbdc] Command: cd /var/www/scripts/releases/20161224214118 && /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION
+  INFO [31e6dbdc] Finished in 0.116 seconds with exit status 0 (successful).
+  INFO [38ef84fb] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214118/config as root@159.203.60.120
+ DEBUG [38ef84fb] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214118/config
+  INFO [38ef84fb] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [4f047d84] Running [ -L /var/www/scripts/releases/20161224214118/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [4f047d84] Command: [ -L /var/www/scripts/releases/20161224214118/config/secrets.production.ejson ]
+ DEBUG [4f047d84] Finished in 0.113 seconds with exit status 1 (failed).
+ DEBUG [da128f92] Running [ -f /var/www/scripts/releases/20161224214118/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [da128f92] Command: [ -f /var/www/scripts/releases/20161224214118/config/secrets.production.ejson ]
+ DEBUG [da128f92] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO [63c61476] Running /usr/bin/env rm /var/www/scripts/releases/20161224214118/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [63c61476] Command: /usr/bin/env rm /var/www/scripts/releases/20161224214118/config/secrets.production.ejson
+  INFO [63c61476] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [4b848f43] Running /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214118/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [4b848f43] Command: /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214118/config/secrets.production.ejson
+  INFO [4b848f43] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [917885f5] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214118 as root@159.203.60.120
+ DEBUG [917885f5] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214118
+  INFO [917885f5] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [987f2088] Running [ -L /var/www/scripts/releases/20161224214118/log ] as root@159.203.60.120
+ DEBUG [987f2088] Command: [ -L /var/www/scripts/releases/20161224214118/log ]
+ DEBUG [987f2088] Finished in 0.111 seconds with exit status 1 (failed).
+ DEBUG [f6218ef0] Running [ -d /var/www/scripts/releases/20161224214118/log ] as root@159.203.60.120
+ DEBUG [f6218ef0] Command: [ -d /var/www/scripts/releases/20161224214118/log ]
+ DEBUG [f6218ef0] Finished in 0.116 seconds with exit status 0 (successful).
+  INFO [cb3fa6b7] Running /usr/bin/env rm -rf /var/www/scripts/releases/20161224214118/log as root@159.203.60.120
+ DEBUG [cb3fa6b7] Command: /usr/bin/env rm -rf /var/www/scripts/releases/20161224214118/log
+  INFO [cb3fa6b7] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [47be4e5b] Running /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214118/log as root@159.203.60.120
+ DEBUG [47be4e5b] Command: /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214118/log
+  INFO [47be4e5b] Finished in 0.113 seconds with exit status 0 (successful).
+ DEBUG [cbe94bca] Running if test ! -d /var/www/scripts/releases/20161224214118; then echo "Directory does not exist '/var/www/scripts/releases/20161224214118'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [cbe94bca] Command: if test ! -d /var/www/scripts/releases/20161224214118; then echo "Directory does not exist '/var/www/scripts/releases/20161224214118'" 1>&2; false; fi
+ DEBUG [cbe94bca] Finished in 0.115 seconds with exit status 0 (successful).
+ DEBUG [5c5ebd59] Running /usr/bin/env bundle check --path /var/www/scripts/shared/bundle as root@159.203.60.120
+ DEBUG [5c5ebd59] Command: cd /var/www/scripts/releases/20161224214118 && /usr/bin/env bundle check --path /var/www/scripts/shared/bundle
+ DEBUG [5c5ebd59] 	The Gemfile's dependencies are satisfied
+ DEBUG [5c5ebd59] Finished in 0.562 seconds with exit status 0 (successful).
+  INFO [3e2a0e28] Running /usr/bin/env ln -s /var/www/scripts/releases/20161224214118 /var/www/scripts/releases/current as root@159.203.60.120
+ DEBUG [3e2a0e28] Command: /usr/bin/env ln -s /var/www/scripts/releases/20161224214118 /var/www/scripts/releases/current
+  INFO [3e2a0e28] Finished in 0.112 seconds with exit status 0 (successful).
+  INFO [21805fc0] Running /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts as root@159.203.60.120
+ DEBUG [21805fc0] Command: /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts
+  INFO [21805fc0] Finished in 0.119 seconds with exit status 0 (successful).
+ DEBUG [3cb0379e] Running if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [3cb0379e] Command: if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi
+ DEBUG [3cb0379e] Finished in 0.120 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-12-24 16:41:50 -0500 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [14e53e19] Running if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [14e53e19] Command: if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi
+ DEBUG [14e53e19] Finished in 0.780 seconds with exit status 0 (successful).
+ DEBUG Uploading /var/www/scripts/shared/config/secrets.production.ejson 0.0%
+  INFO Uploading /var/www/scripts/shared/config/secrets.production.ejson 100.0%
+  INFO [4ea86189] Running /usr/bin/env mkdir -p /tmp as root@159.203.60.120
+ DEBUG [4ea86189] Command: /usr/bin/env mkdir -p /tmp
+  INFO [4ea86189] Finished in 0.130 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 0.0%
+  INFO Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 100.0%
+  INFO [1574e9bc] Running /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh as root@159.203.60.120
+ DEBUG [1574e9bc] Command: /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh
+  INFO [1574e9bc] Finished in 0.110 seconds with exit status 0 (successful).
+  INFO [941b4de2] Running /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git as root@159.203.60.120
+ DEBUG [941b4de2] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git )
+ DEBUG [941b4de2] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4	refs/heads/master
+  INFO [941b4de2] Finished in 0.605 seconds with exit status 0 (successful).
+  INFO [d16390f5] Running /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases as root@159.203.60.120
+ DEBUG [d16390f5] Command: /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases
+  INFO [d16390f5] Finished in 0.112 seconds with exit status 0 (successful).
+  INFO [ece3ec27] Running /usr/bin/env mkdir -p /var/www/scripts/shared/log as root@159.203.60.120
+ DEBUG [ece3ec27] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/log
+  INFO [ece3ec27] Finished in 0.111 seconds with exit status 0 (successful).
+  INFO [01a11a6e] Running /usr/bin/env mkdir -p /var/www/scripts/shared/config as root@159.203.60.120
+ DEBUG [01a11a6e] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/config
+  INFO [01a11a6e] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [1882edcb] Running [ -f /var/www/scripts/shared/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [1882edcb] Command: [ -f /var/www/scripts/shared/config/secrets.production.ejson ]
+ DEBUG [1882edcb] Finished in 0.108 seconds with exit status 0 (successful).
+ DEBUG [690f02bf] Running [ -f /var/www/scripts/current/REVISION ] as root@159.203.60.120
+ DEBUG [690f02bf] Command: [ -f /var/www/scripts/current/REVISION ]
+ DEBUG [690f02bf] Finished in 0.112 seconds with exit status 0 (successful).
+ DEBUG [aa2e08a2] Running /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null as root@159.203.60.120
+ DEBUG [aa2e08a2] Command: /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null
+ DEBUG [aa2e08a2] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [aa2e08a2] Finished in 0.110 seconds with exit status 0 (successful).
+ DEBUG [ba5317df] Running [ -f /var/www/scripts/repo/HEAD ] as root@159.203.60.120
+ DEBUG [ba5317df] Command: [ -f /var/www/scripts/repo/HEAD ]
+ DEBUG [ba5317df] Finished in 0.124 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/scripts/repo
+ DEBUG [2db7c92c] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [2db7c92c] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [2db7c92c] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO [7c4d2f18] Running /usr/bin/env git remote update --prune as root@159.203.60.120
+ DEBUG [7c4d2f18] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [7c4d2f18] 	Fetching origin
+  INFO [7c4d2f18] Finished in 0.626 seconds with exit status 0 (successful).
+ DEBUG [0e4f8257] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [0e4f8257] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [0e4f8257] Finished in 0.111 seconds with exit status 0 (successful).
+  INFO [f6c7699e] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214153 as root@159.203.60.120
+ DEBUG [f6c7699e] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214153 )
+  INFO [f6c7699e] Finished in 0.116 seconds with exit status 0 (successful).
+  INFO [b1ea9a3b] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214153 as root@159.203.60.120
+ DEBUG [b1ea9a3b] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214153 )
+  INFO [b1ea9a3b] Finished in 0.133 seconds with exit status 0 (successful).
+ DEBUG [282937ff] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [282937ff] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [282937ff] Finished in 0.104 seconds with exit status 0 (successful).
+ DEBUG [c81de9c4] Running /usr/bin/env git rev-list --max-count=1 master as root@159.203.60.120
+ DEBUG [c81de9c4] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [c81de9c4] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [c81de9c4] Finished in 0.129 seconds with exit status 0 (successful).
+ DEBUG [1da81d58] Running if test ! -d /var/www/scripts/releases/20161224214153; then echo "Directory does not exist '/var/www/scripts/releases/20161224214153'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [1da81d58] Command: if test ! -d /var/www/scripts/releases/20161224214153; then echo "Directory does not exist '/var/www/scripts/releases/20161224214153'" 1>&2; false; fi
+ DEBUG [1da81d58] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [45bc9c54] Running /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION as root@159.203.60.120
+ DEBUG [45bc9c54] Command: cd /var/www/scripts/releases/20161224214153 && /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION
+  INFO [45bc9c54] Finished in 0.116 seconds with exit status 0 (successful).
+  INFO [cf8aae99] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214153/config as root@159.203.60.120
+ DEBUG [cf8aae99] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214153/config
+  INFO [cf8aae99] Finished in 0.112 seconds with exit status 0 (successful).
+ DEBUG [655400ce] Running [ -L /var/www/scripts/releases/20161224214153/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [655400ce] Command: [ -L /var/www/scripts/releases/20161224214153/config/secrets.production.ejson ]
+ DEBUG [655400ce] Finished in 0.111 seconds with exit status 1 (failed).
+ DEBUG [7aa01479] Running [ -f /var/www/scripts/releases/20161224214153/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [7aa01479] Command: [ -f /var/www/scripts/releases/20161224214153/config/secrets.production.ejson ]
+ DEBUG [7aa01479] Finished in 0.123 seconds with exit status 0 (successful).
+  INFO [ad958735] Running /usr/bin/env rm /var/www/scripts/releases/20161224214153/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [ad958735] Command: /usr/bin/env rm /var/www/scripts/releases/20161224214153/config/secrets.production.ejson
+  INFO [ad958735] Finished in 0.121 seconds with exit status 0 (successful).
+  INFO [45d8cbff] Running /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214153/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [45d8cbff] Command: /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214153/config/secrets.production.ejson
+  INFO [45d8cbff] Finished in 0.128 seconds with exit status 0 (successful).
+  INFO [83e90e33] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214153 as root@159.203.60.120
+ DEBUG [83e90e33] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214153
+  INFO [83e90e33] Finished in 0.112 seconds with exit status 0 (successful).
+ DEBUG [2a9452c0] Running [ -L /var/www/scripts/releases/20161224214153/log ] as root@159.203.60.120
+ DEBUG [2a9452c0] Command: [ -L /var/www/scripts/releases/20161224214153/log ]
+ DEBUG [2a9452c0] Finished in 0.128 seconds with exit status 1 (failed).
+ DEBUG [7738a942] Running [ -d /var/www/scripts/releases/20161224214153/log ] as root@159.203.60.120
+ DEBUG [7738a942] Command: [ -d /var/www/scripts/releases/20161224214153/log ]
+ DEBUG [7738a942] Finished in 0.117 seconds with exit status 0 (successful).
+  INFO [7d77a809] Running /usr/bin/env rm -rf /var/www/scripts/releases/20161224214153/log as root@159.203.60.120
+ DEBUG [7d77a809] Command: /usr/bin/env rm -rf /var/www/scripts/releases/20161224214153/log
+  INFO [7d77a809] Finished in 0.111 seconds with exit status 0 (successful).
+  INFO [66cefb8b] Running /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214153/log as root@159.203.60.120
+ DEBUG [66cefb8b] Command: /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214153/log
+  INFO [66cefb8b] Finished in 0.119 seconds with exit status 0 (successful).
+ DEBUG [318a84db] Running if test ! -d /var/www/scripts/releases/20161224214153; then echo "Directory does not exist '/var/www/scripts/releases/20161224214153'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [318a84db] Command: if test ! -d /var/www/scripts/releases/20161224214153; then echo "Directory does not exist '/var/www/scripts/releases/20161224214153'" 1>&2; false; fi
+ DEBUG [318a84db] Finished in 0.114 seconds with exit status 0 (successful).
+ DEBUG [cb4223df] Running /usr/bin/env bundle check --path /var/www/scripts/shared/bundle as root@159.203.60.120
+ DEBUG [cb4223df] Command: cd /var/www/scripts/releases/20161224214153 && /usr/bin/env bundle check --path /var/www/scripts/shared/bundle
+ DEBUG [cb4223df] 	The Gemfile's dependencies are satisfied
+ DEBUG [cb4223df] Finished in 0.543 seconds with exit status 0 (successful).
+  INFO [1d0407a2] Running /usr/bin/env ln -s /var/www/scripts/releases/20161224214153 /var/www/scripts/releases/current as root@159.203.60.120
+ DEBUG [1d0407a2] Command: /usr/bin/env ln -s /var/www/scripts/releases/20161224214153 /var/www/scripts/releases/current
+  INFO [1d0407a2] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO [514986b9] Running /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts as root@159.203.60.120
+ DEBUG [514986b9] Command: /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts
+  INFO [514986b9] Finished in 0.110 seconds with exit status 0 (successful).
+ DEBUG [716f2670] Running if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [716f2670] Command: if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi
+ DEBUG [716f2670] Finished in 0.107 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-12-24 16:42:23 -0500 cap production deploy
+  INFO ---------------------------------------------------------------------------
+ DEBUG [11bc70c4] Running if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [11bc70c4] Command: if test ! -d /var/www/scripts/shared; then echo "Directory does not exist '/var/www/scripts/shared'" 1>&2; false; fi
+ DEBUG [11bc70c4] Finished in 0.692 seconds with exit status 0 (successful).
+ DEBUG Uploading /var/www/scripts/shared/config/secrets.production.ejson 0.0%
+  INFO Uploading /var/www/scripts/shared/config/secrets.production.ejson 100.0%
+  INFO [813167c7] Running /usr/bin/env mkdir -p /tmp as root@159.203.60.120
+ DEBUG [813167c7] Command: /usr/bin/env mkdir -p /tmp
+  INFO [813167c7] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 0.0%
+  INFO Uploading /tmp/git-ssh-scripts-production-juliannadeau.sh 100.0%
+  INFO [cad6d081] Running /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh as root@159.203.60.120
+ DEBUG [cad6d081] Command: /usr/bin/env chmod 700 /tmp/git-ssh-scripts-production-juliannadeau.sh
+  INFO [cad6d081] Finished in 0.116 seconds with exit status 0 (successful).
+  INFO [71f3f582] Running /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git as root@159.203.60.120
+ DEBUG [71f3f582] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git ls-remote --heads git@github.com:jules2689/scripts.git )
+ DEBUG [71f3f582] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4	refs/heads/master
+  INFO [71f3f582] Finished in 0.608 seconds with exit status 0 (successful).
+  INFO [31396a97] Running /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases as root@159.203.60.120
+ DEBUG [31396a97] Command: /usr/bin/env mkdir -p /var/www/scripts/shared /var/www/scripts/releases
+  INFO [31396a97] Finished in 0.114 seconds with exit status 0 (successful).
+  INFO [24426180] Running /usr/bin/env mkdir -p /var/www/scripts/shared/log as root@159.203.60.120
+ DEBUG [24426180] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/log
+  INFO [24426180] Finished in 0.111 seconds with exit status 0 (successful).
+  INFO [581e98f4] Running /usr/bin/env mkdir -p /var/www/scripts/shared/config as root@159.203.60.120
+ DEBUG [581e98f4] Command: /usr/bin/env mkdir -p /var/www/scripts/shared/config
+  INFO [581e98f4] Finished in 0.117 seconds with exit status 0 (successful).
+ DEBUG [73f62f17] Running [ -f /var/www/scripts/shared/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [73f62f17] Command: [ -f /var/www/scripts/shared/config/secrets.production.ejson ]
+ DEBUG [73f62f17] Finished in 0.109 seconds with exit status 0 (successful).
+ DEBUG [6a176808] Running [ -f /var/www/scripts/current/REVISION ] as root@159.203.60.120
+ DEBUG [6a176808] Command: [ -f /var/www/scripts/current/REVISION ]
+ DEBUG [6a176808] Finished in 0.116 seconds with exit status 0 (successful).
+ DEBUG [8593e37d] Running /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null as root@159.203.60.120
+ DEBUG [8593e37d] Command: /usr/bin/env cat /var/www/scripts/current/REVISION 2>/dev/null
+ DEBUG [8593e37d] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [8593e37d] Finished in 0.111 seconds with exit status 0 (successful).
+ DEBUG [b75465b2] Running [ -f /var/www/scripts/repo/HEAD ] as root@159.203.60.120
+ DEBUG [b75465b2] Command: [ -f /var/www/scripts/repo/HEAD ]
+ DEBUG [b75465b2] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/scripts/repo
+ DEBUG [9f7f347b] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [9f7f347b] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [9f7f347b] Finished in 0.113 seconds with exit status 0 (successful).
+  INFO [b5fc8f34] Running /usr/bin/env git remote update --prune as root@159.203.60.120
+ DEBUG [b5fc8f34] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [b5fc8f34] 	Fetching origin
+  INFO [b5fc8f34] Finished in 0.647 seconds with exit status 0 (successful).
+ DEBUG [ef5270bf] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [ef5270bf] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [ef5270bf] Finished in 0.112 seconds with exit status 0 (successful).
+  INFO [792cf5c6] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214226 as root@159.203.60.120
+ DEBUG [792cf5c6] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214226 )
+  INFO [792cf5c6] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [8a01052f] Running /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214226 as root@159.203.60.120
+ DEBUG [8a01052f] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git archive master | /usr/bin/env tar -x -f - -C /var/www/scripts/releases/20161224214226 )
+  INFO [8a01052f] Finished in 0.134 seconds with exit status 0 (successful).
+ DEBUG [03d8c2b7] Running if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [03d8c2b7] Command: if test ! -d /var/www/scripts/repo; then echo "Directory does not exist '/var/www/scripts/repo'" 1>&2; false; fi
+ DEBUG [03d8c2b7] Finished in 0.116 seconds with exit status 0 (successful).
+ DEBUG [74b69053] Running /usr/bin/env git rev-list --max-count=1 master as root@159.203.60.120
+ DEBUG [74b69053] Command: cd /var/www/scripts/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/git-ssh-scripts-production-juliannadeau.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [74b69053] 	72cf4e7242d1ac21341a65b9b4f051b46514eab4
+ DEBUG [74b69053] Finished in 0.124 seconds with exit status 0 (successful).
+ DEBUG [55ae7227] Running if test ! -d /var/www/scripts/releases/20161224214226; then echo "Directory does not exist '/var/www/scripts/releases/20161224214226'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [55ae7227] Command: if test ! -d /var/www/scripts/releases/20161224214226; then echo "Directory does not exist '/var/www/scripts/releases/20161224214226'" 1>&2; false; fi
+ DEBUG [55ae7227] Finished in 0.106 seconds with exit status 0 (successful).
+  INFO [f8b5b27e] Running /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION as root@159.203.60.120
+ DEBUG [f8b5b27e] Command: cd /var/www/scripts/releases/20161224214226 && /usr/bin/env echo "72cf4e7242d1ac21341a65b9b4f051b46514eab4" >> REVISION
+  INFO [f8b5b27e] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO [34fc47ae] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214226/config as root@159.203.60.120
+ DEBUG [34fc47ae] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214226/config
+  INFO [34fc47ae] Finished in 0.121 seconds with exit status 0 (successful).
+ DEBUG [99cc8786] Running [ -L /var/www/scripts/releases/20161224214226/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [99cc8786] Command: [ -L /var/www/scripts/releases/20161224214226/config/secrets.production.ejson ]
+ DEBUG [99cc8786] Finished in 0.111 seconds with exit status 1 (failed).
+ DEBUG [72f6ed22] Running [ -f /var/www/scripts/releases/20161224214226/config/secrets.production.ejson ] as root@159.203.60.120
+ DEBUG [72f6ed22] Command: [ -f /var/www/scripts/releases/20161224214226/config/secrets.production.ejson ]
+ DEBUG [72f6ed22] Finished in 0.112 seconds with exit status 0 (successful).
+  INFO [1f768d5f] Running /usr/bin/env rm /var/www/scripts/releases/20161224214226/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [1f768d5f] Command: /usr/bin/env rm /var/www/scripts/releases/20161224214226/config/secrets.production.ejson
+  INFO [1f768d5f] Finished in 0.128 seconds with exit status 0 (successful).
+  INFO [25f205bb] Running /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214226/config/secrets.production.ejson as root@159.203.60.120
+ DEBUG [25f205bb] Command: /usr/bin/env ln -s /var/www/scripts/shared/config/secrets.production.ejson /var/www/scripts/releases/20161224214226/config/secrets.production.ejson
+  INFO [25f205bb] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO [af6fa934] Running /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214226 as root@159.203.60.120
+ DEBUG [af6fa934] Command: /usr/bin/env mkdir -p /var/www/scripts/releases/20161224214226
+  INFO [af6fa934] Finished in 0.118 seconds with exit status 0 (successful).
+ DEBUG [24220a85] Running [ -L /var/www/scripts/releases/20161224214226/log ] as root@159.203.60.120
+ DEBUG [24220a85] Command: [ -L /var/www/scripts/releases/20161224214226/log ]
+ DEBUG [24220a85] Finished in 0.107 seconds with exit status 1 (failed).
+ DEBUG [ebfd9310] Running [ -d /var/www/scripts/releases/20161224214226/log ] as root@159.203.60.120
+ DEBUG [ebfd9310] Command: [ -d /var/www/scripts/releases/20161224214226/log ]
+ DEBUG [ebfd9310] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO [21fb383c] Running /usr/bin/env rm -rf /var/www/scripts/releases/20161224214226/log as root@159.203.60.120
+ DEBUG [21fb383c] Command: /usr/bin/env rm -rf /var/www/scripts/releases/20161224214226/log
+  INFO [21fb383c] Finished in 0.115 seconds with exit status 0 (successful).
+  INFO [a05af6ad] Running /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214226/log as root@159.203.60.120
+ DEBUG [a05af6ad] Command: /usr/bin/env ln -s /var/www/scripts/shared/log /var/www/scripts/releases/20161224214226/log
+  INFO [a05af6ad] Finished in 0.125 seconds with exit status 0 (successful).
+ DEBUG [8481901f] Running if test ! -d /var/www/scripts/releases/20161224214226; then echo "Directory does not exist '/var/www/scripts/releases/20161224214226'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [8481901f] Command: if test ! -d /var/www/scripts/releases/20161224214226; then echo "Directory does not exist '/var/www/scripts/releases/20161224214226'" 1>&2; false; fi
+ DEBUG [8481901f] Finished in 0.107 seconds with exit status 0 (successful).
+ DEBUG [77e33996] Running /usr/bin/env bundle check --path /var/www/scripts/shared/bundle as root@159.203.60.120
+ DEBUG [77e33996] Command: cd /var/www/scripts/releases/20161224214226 && /usr/bin/env bundle check --path /var/www/scripts/shared/bundle
+ DEBUG [77e33996] 	The Gemfile's dependencies are satisfied
+ DEBUG [77e33996] Finished in 0.527 seconds with exit status 0 (successful).
+  INFO [a7594b6b] Running /usr/bin/env ln -s /var/www/scripts/releases/20161224214226 /var/www/scripts/releases/current as root@159.203.60.120
+ DEBUG [a7594b6b] Command: /usr/bin/env ln -s /var/www/scripts/releases/20161224214226 /var/www/scripts/releases/current
+  INFO [a7594b6b] Finished in 0.108 seconds with exit status 0 (successful).
+  INFO [9c6d2e7c] Running /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts as root@159.203.60.120
+ DEBUG [9c6d2e7c] Command: /usr/bin/env mv /var/www/scripts/releases/current /var/www/scripts
+  INFO [9c6d2e7c] Finished in 0.114 seconds with exit status 0 (successful).
+ DEBUG [417a74d3] Running if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi as root@159.203.60.120
+ DEBUG [417a74d3] Command: if test ! -d /var/www/scripts/current; then echo "Directory does not exist '/var/www/scripts/current'" 1>&2; false; fi
+ DEBUG [417a74d3] Finished in 0.122 seconds with exit status 0 (successful).
+ DEBUG Uploading /etc/daemon 0.0%
+  INFO Uploading /etc/daemon 100.0%
+  INFO [44b665e0] Running /usr/local/bin/ruby /etc/daemon as root@159.203.60.120
+ DEBUG [44b665e0] Command: /usr/local/bin/ruby /etc/daemon
+ DEBUG [44b665e0] 	/opt/rubies/ruby-2.3.3/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+ DEBUG [44b665e0] 	: 
+ DEBUG [44b665e0] 	cannot load such file -- daemons
+ DEBUG [44b665e0] 	 (
+ DEBUG [44b665e0] 	LoadError
+ DEBUG [44b665e0] 	)
+ DEBUG [44b665e0] 		from /opt/rubies/ruby-2.3.3/lib/ruby/2.3.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+ DEBUG [44b665e0] 		from /etc/daemon:1:in `<main>'
