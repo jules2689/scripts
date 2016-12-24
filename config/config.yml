@@ -1,6 +1,6 @@
 - 
   name: 'script.rb'
-  schedule: 0 * * * *
+  schedule: "* * * * *"
 - 
   name: 'script2.rb'
   background: true

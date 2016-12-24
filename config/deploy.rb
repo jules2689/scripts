@@ -1,3 +1,5 @@
+require 'byebug'
+
 # config valid only for current version of Capistrano
 lock '3.7.1'
 
@@ -40,22 +42,20 @@ namespace :deploy do
     yaml_config = YAML.load_file('config/config.yml')
     on roles(:app) do
       within current_path do
+        cron_lines = []
         yaml_config.each do |script|
           if script.key?('schedule')
-            cron_line = "#{script['schedule']} #{current_path}/lib/scripts/#{script['name']}"
-            crontab_add(cron_line)
+            script_path = "#{current_path}/lib/scripts/#{script['name']}"
+            cron_lines << "#{script['schedule']} #{script_path} >#{shared_path}/log/#{script['name']}.log"
           elsif script.key?('background')
-            execute :ruby, "#{current_path}/lib/scripts/#{script['name']} &"
+            execute :ruby, "#{current_path}/lib/scripts/#{script['name']} >#{shared_path}/log/#{script['name']}.log &"
           end
         end
+        new_crontab = cron_lines.join("\n") + "\n"
+        upload! StringIO.new(new_crontab), "#{current_path}/config/crontab"
+        execute "crontab < #{current_path}/config/crontab"
       end
     end
-  end
-
-  def crontab_add(line)
-    config = capture(%(crontab -l).split("\n"))
-    return if config.include?(line)
-    run %((crontab -l; echo "#{line}") | crontab -)
   end
 
   # desc "Start Job"
@@ -101,6 +101,6 @@ namespace :deploy do
 
   before :starting,  :check_revision
   before :starting,  'secrets:sync'
-  # before :finishing, :start
+  before :finishing, :start_scripts
   # after  :finishing, :check_running
 end
