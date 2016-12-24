@@ -58,7 +58,9 @@ namespace :deploy do
           "Daemons.run('#{script_path}', { log_output: true, logfilename: '#{shared_path}/log/#{script['name']}.log' })"
         end
         upload! StringIO.new(daemon.join("\n")), "/etc/daemon"
-        execute "/usr/local/bin/ruby /etc/daemon restart"
+        within "/etc" do
+          execute "/usr/local/bin/ruby /etc/daemon restart"
+        end
 
         new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /usr/local/bin/ruby /etc/daemon restart" + "\n"
         upload! StringIO.new(new_crontab), "#{current_path}/config/crontab"
