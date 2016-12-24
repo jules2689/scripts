@@ -36,7 +36,7 @@ namespace :deploy do
   end
 
   yaml_config = YAML.load('config/config.yml')
-  logger.info yaml_config.inspect
+  puts yaml_config.inspect
 
   # desc "Start Job"
   # task :start do
