@@ -1,4 +1,6 @@
+require_relative 'helpers/sys_logger'
+
 loop do
-  puts "#{Time.now.to_s} -> Logging background"
+  SysLogger.logger.info "#{Time.now} -> Logging background in script2.rb"
   sleep 1
 end
