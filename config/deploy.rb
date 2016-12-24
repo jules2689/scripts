@@ -43,9 +43,9 @@ namespace :deploy do
         yaml_config.each do |script|
           if script.key?('schedule')
             script_path = "#{current_path}/lib/scripts/#{script['name']}"
-            cron_lines << "#{script['schedule']} ruby #{script_path} >#{shared_path}/log/#{script['name']}.log"
+            cron_lines << "#{script['schedule']} ruby #{script_path} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
           elsif script.key?('background')
-            execute "nohup #{current_path}/lib/scripts/#{script['name']} >#{shared_path}/log/#{script['name']}.log &> /dev/null &"
+            execute "nohup #{current_path}/lib/scripts/#{script['name']} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
           end
         end
         new_crontab = cron_lines.join("\n") + "\n"
