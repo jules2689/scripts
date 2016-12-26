@@ -3,7 +3,6 @@ require "uri"
 require_relative 'helpers/sys_logger'
 require_relative 'helpers/secrets'
 require 'airrecord'
-require 'byebug'
 
 class Restaurant < Airrecord::Table
   self.api_key = Secrets.secrets["airtable_api_key"]

@@ -55,8 +55,10 @@ namespace :deploy do
 
       # Setup daemon file
       if reboot_scripts.empty?
-        execute "/usr/local/bin/ruby /etc/daemon stop"
-        upload! StringIO.new("require 'daemons'", "/etc/daemon")
+        unless capture("cat /etc/daemon").strip.empty?
+          execute "/usr/local/bin/ruby /etc/daemon stop"
+          upload! StringIO.new("", "/etc/daemon")
+        end
       else
         daemon = ["require 'daemons'"]
         daemon += reboot_scripts.map do |script, script_path|
