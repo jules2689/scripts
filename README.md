@@ -10,3 +10,4 @@ Runs a set of Ruby scripts on a schedule or constantly in the background.
 Manual Steps (for now):
 1. Install Ruby (2.3.3)
 2. Manually install `bundler`, `daemons`, `remote_syslog_logger`, `ejson` gems
+3. Install the proper ejson private key

@@ -54,21 +54,26 @@ namespace :deploy do
       end
 
       # Setup daemon file
-      daemon = ["require 'daemons'"]
-      daemon += reboot_scripts.map do |script, script_path|
-        hash_options = {
-          keep_pid_files: true,
-          dir_mode: :normal,
-          dir: "#{shared_path}/pids",
-          log_output: true,
-          logfilename: "#{shared_path}/log/#{script['name']}.log"
-        }.inspect
-        "Daemons.run('#{script_path}', #{hash_options})"
-      end
-      upload! StringIO.new(daemon.join("\n")), "/etc/daemon"
+      if reboot_scripts.empty?
+        execute "/usr/local/bin/ruby /etc/daemon stop"
+        upload! StringIO.new("require 'daemons'", "/etc/daemon")
+      else
+        daemon = ["require 'daemons'"]
+        daemon += reboot_scripts.map do |script, script_path|
+          hash_options = {
+            keep_pid_files: true,
+            dir_mode: :normal,
+            dir: "#{shared_path}/pids",
+            log_output: true,
+            logfilename: "#{shared_path}/log/#{script['name']}.log"
+          }.inspect
+          "Daemons.run('#{script_path}', #{hash_options})"
+        end
+        upload! StringIO.new(daemon.join("\n")), "/etc/daemon"
 
-      # Restart Daemon
-      execute "/usr/local/bin/ruby /etc/daemon restart"
+        # Restart Daemon
+        execute "/usr/local/bin/ruby /etc/daemon restart"
+      end
 
       # Update/Setup Crontab
       new_crontab = cron_lines.join("\n") + "\n\n" + "@reboot /usr/local/bin/ruby /etc/daemon restart" + "\n"
