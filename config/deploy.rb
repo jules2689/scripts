@@ -79,6 +79,7 @@ namespace :deploy do
   end
 
   before :starting,  :check_revision
-  before :starting,  'secrets:sync'
+  after  :starting,  'bundler:install'
+  before :finishing, 'secrets:sync'
   before :finishing, :start_scripts
 end
