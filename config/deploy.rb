@@ -7,7 +7,7 @@ set :repo_url,        'git@github.com:jules2689/scripts.git'
 set :user,            'root'
 set :linked_dirs,     %w(log pids)
 set :environment,     'production'
-set :linked_files,    %w(config/secrets.production.ejson)
+set :linked_files,    %w(config/secrets.production.ejson config/secrets.json)
 
 namespace :secrets do
   desc 'Sync local secrets to production'
