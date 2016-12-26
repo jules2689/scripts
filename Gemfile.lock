@@ -3,6 +3,9 @@ GEM
   specs:
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
+    airrecord (0.1.1)
+      faraday (~> 0.10.0)
+      net-http-persistent (~> 2.9.4)
     byebug (9.0.6)
     capistrano (3.7.1)
       airbrussh (>= 1.0.0)
@@ -16,7 +19,11 @@ GEM
     capistrano-harrow (0.5.3)
     daemons (1.2.4)
     ejson (1.0.2)
+    faraday (0.10.0)
+      multipart-post (>= 1.2, < 3)
     i18n (0.7.0)
+    multipart-post (2.0.0)
+    net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
@@ -32,6 +39,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  airrecord
   byebug
   capistrano (~> 3.7)
   capistrano-bundler (~> 1.2)

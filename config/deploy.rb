@@ -18,6 +18,7 @@ namespace :secrets do
         if File.exist?('config/secrets.production.ejson')
           secrets = File.read('config/secrets.production.ejson')
           upload! StringIO.new(secrets), "#{shared_path}/config/secrets.production.ejson"
+          execute "ejson decrypt #{shared_path}/config/secrets.production.ejson > #{shared_path}/config/secrets.json"
         end
       end
     end

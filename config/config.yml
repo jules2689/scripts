@@ -1,6 +1,3 @@
 - 
-  name: 'script.rb'
-  schedule: "* * * * *"
-- 
-  name: 'script2.rb'
-  background: true
+  name: 'airtable_geocode_sync.rb'
+  schedule: "*/5 * * * *"
