@@ -5,7 +5,6 @@ lock '3.7.1'
 set :application,     'scripts'
 set :repo_url,        'git@github.com:jules2689/scripts.git'
 set :user,            'root'
-set :chruby_ruby,     'ruby-2.3.1'
 set :linked_dirs,     %w(log pids)
 set :environment,     'production'
 set :linked_files,    %w(config/secrets.production.ejson)
@@ -18,7 +17,7 @@ namespace :secrets do
         if File.exist?('config/secrets.production.ejson')
           secrets = File.read('config/secrets.production.ejson')
           upload! StringIO.new(secrets), "#{shared_path}/config/secrets.production.ejson"
-          execute "ejson decrypt #{shared_path}/config/secrets.production.ejson > #{shared_path}/config/secrets.json"
+          execute "/opt/rubies/ruby-2.3.3/bin/ejson decrypt #{shared_path}/config/secrets.production.ejson > #{shared_path}/config/secrets.json"
         end
       end
     end
