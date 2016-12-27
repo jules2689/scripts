@@ -20,7 +20,13 @@ Restaurant.all.each do |restaurant|
     url = "http://geocoder.ca/?locate=#{CGI.escape(restaurant[:address])}&json=true"
     uri = URI.parse(url)
     response = Net::HTTP.get_response(uri)
-    json_response = JSON.parse(response.body)
+    json_response = begin
+      JSON.parse(response.body)
+    rescue JSON::ParserError => e
+      SysLogger.logger.info "Could not parse response from geocoder: #{response.body}"
+      nil
+    end
+    next if json_response.nil?
 
     if json_response.key?("error")
       SysLogger.logger.info "-> Error parsing address: #{json_response['error']}"
