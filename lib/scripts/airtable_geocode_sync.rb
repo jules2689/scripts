@@ -11,7 +11,9 @@ class Restaurant < Airrecord::Table
 end
 
 Restaurant.all.each do |restaurant|
-  if restaurant["Latitude"].nil? || restaurant["Longitude"].nil?
+  if restaurant['attemptedToGeocode']
+    SysLogger.logger.info "Restaurant #{restaurant[:name]} previously tried to be geocoded"
+  elsif restaurant["Latitude"].nil? || restaurant["Longitude"].nil?
     SysLogger.logger.info "Geocoding Restaurant #{restaurant[:name]}"
 
     # Parse out Geocode
@@ -26,6 +28,7 @@ Restaurant.all.each do |restaurant|
       SysLogger.logger.info "-> Received geocode"
       restaurant['Latitude'] = json_response["latt"].to_f
       restaurant['Longitude'] = json_response["longt"].to_f
+      restaurant['attemptedToGeocode'] = true
       restaurant.save
       SysLogger.logger.info "-> Successfully updated"
     end
