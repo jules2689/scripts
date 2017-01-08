@@ -12,7 +12,7 @@ end
 
 Restaurant.all.each do |restaurant|
   if restaurant['attemptedToGeocode']
-    SysLogger.logger.info "Restaurant #{restaurant[:name]} previously tried to be geocoded"
+    next
   elsif restaurant["Latitude"].nil? || restaurant["Longitude"].nil?
     SysLogger.logger.info "Geocoding Restaurant #{restaurant[:name]}"
 
@@ -22,7 +22,7 @@ Restaurant.all.each do |restaurant|
     response = Net::HTTP.get_response(uri)
     json_response = begin
       JSON.parse(response.body)
-    rescue JSON::ParserError => e
+    rescue JSON::ParserError
       SysLogger.logger.info "Could not parse response from geocoder: #{response.body}"
       nil
     end
