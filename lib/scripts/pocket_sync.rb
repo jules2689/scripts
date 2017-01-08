@@ -119,5 +119,5 @@ begin
 rescue => e
   ScrappyStore.write('pocket_since_timestamp', original_since_timestamp)
   SysLogger.logger.error "#{e.class} => #{e.message}"
-  raise e
 end
+SysLogger.logger.info 'Finished Sync'

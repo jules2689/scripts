@@ -43,3 +43,4 @@ Restaurant.all.each do |restaurant|
     SysLogger.logger.info "Restaurant #{restaurant[:name]} already geocoded"
   end
 end
+SysLogger.logger.info 'Finished Sync'
