@@ -12,6 +12,37 @@ class Article < Airrecord::Table
   self.table_name = Secrets.secrets['airtable_pocket_table_id']
 end
 
+def needs_update?(article, listing)
+  return true if article['Name']       != title_from_listing(listing)
+  return true if article['Body']       != listing['excerpt']
+  return true if article['Tags']       != tags_from_listing(listing)
+  return true if article['URL']        != listing['given_url']
+  return true if article['read_at']    != listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil
+  return true if article['archived']   != (listing['status'].to_s == '1')
+  return true if article['word_count'] != listing['word_count'].to_i
+  false
+end
+
+def update_article(article, listing)
+  article['Name']       = title_from_listing(listing)
+  article['Body']       = listing['excerpt']
+  article['Tags']       = tags_from_listing(listing)
+  article['URL']        = listing['given_url']
+  article['read_at']    = listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil
+  article['archived']   = listing['status'].to_s == '1'
+  article['word_count'] = listing['word_count'].to_i
+  article.save
+end
+
+def tags_from_listing(listing)
+  listing['tags'].nil? ? "" : listing['tags'].values.collect { |t| t['tag'] }.join(',')
+end
+
+def title_from_listing(listing)
+  return listing['resolved_title'] unless listing['resolved_title'].nil? || listing['resolved_title'] == ''
+  return listing['given_title'] unless listing['given_title'].nil? || listing['given_title'] == ''
+end
+
 SysLogger.logger.info "Starting Pocket sync with Airtable"
 
 current_articles = Article.all
@@ -20,30 +51,18 @@ listings = PocketApi.fetch_listings.reject { |l| l['given_url'].nil? }
 
 begin
   listings.each_with_index do |listing, idx|
-    title = listing['resolved_title'].nil? || listing['resolved_title'] == '' ? title : listing['resolved_title']
-
     if article = current_articles.detect { |a| a[:pocketid] == listing['item_id'] }
-      SysLogger.logger.info "[UPDATE] #{title} - #{listing['given_url']} - (#{idx + 1}/#{listings.count})"
-
-      article['PocketID']   = listing['item_id']
-      article['Name']       = title
-      article['Body']       = listing['excerpt']
-      article['Tags']       = listing['tags'].nil? ? "" : listing['tags'].values.collect { |t| t['tag'] }.join(',')
-      article['URL']        = listing['given_url']
-      article['added_at']   = Time.at(listing['time_added'].to_i).iso8601
-      article['read_at']    = listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil
-      article['archived']   = listing['status'].to_s == '1'
-      article['word_count'] = listing['word_count'].to_i
-      article.save
+      next unless needs_update?(article, listing)
+      SysLogger.logger.info "[UPDATE] #{title_from_listing(listing)} - #{listing['given_url']} - (#{idx + 1}/#{listings.count})"
+      update_article(article, listing)
     else
-      SysLogger.logger.info "[CREATE] #{title} - #{listing['given_url']} - (#{idx + 1}/#{listings.count})"
-
+      SysLogger.logger.info "[CREATE] #{title_from_listing(listing)} - #{listing['given_url']} - (#{idx + 1}/#{listings.count})"
       Article.new(
         PocketID: listing['item_id'],
-        Name: title,
+        Name: title_from_listing(listing),
         Image: listing['images'].nil? ? [] : listing['images'].values.collect { |i| { url: i['src'] } },
         Body: listing['excerpt'],
-        Tags: listing['tags'].nil? ? "" : listing['tags'].values.collect { |t| t['tag'] }.join(','),
+        Tags: tags_from_listing(listing),
         URL: listing['given_url'],
         added_at: Time.at(listing['time_added'].to_i).iso8601,
         read_at: listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil,
