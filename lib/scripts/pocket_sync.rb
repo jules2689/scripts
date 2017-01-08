@@ -18,7 +18,7 @@ def needs_update?(article, listing)
   return true if article['Tags']       != tags_from_listing(listing)
   return true if article['URL']        != listing['given_url']
   return true if article['read_at']    != listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil
-  return true if article['archived']   != (listing['status'].to_s == '1')
+  return true if article['archived']   != (listing['status'].to_s != '0')
   return true if article['word_count'] != listing['word_count'].to_i
   false
 end
@@ -29,7 +29,7 @@ def update_article(article, listing)
   article['Tags']       = tags_from_listing(listing)
   article['URL']        = listing['given_url']
   article['read_at']    = listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil
-  article['archived']   = listing['status'].to_s == '1'
+  article['archived']   = listing['status'].to_s != '0'
   article['word_count'] = listing['word_count'].to_i
   article.save
 end
@@ -39,8 +39,8 @@ def tags_from_listing(listing)
 end
 
 def title_from_listing(listing)
-  return listing['resolved_title'] unless listing['resolved_title'].nil? || listing['resolved_title'] == ''
-  return listing['given_title'] unless listing['given_title'].nil? || listing['given_title'] == ''
+  return listing['resolved_title'] unless listing['resolved_title'].nil? || listing['resolved_title'].strip == ''
+  return listing['given_title'] unless listing['given_title'].nil? || listing['given_title'].strip == ''
   listing['given_url']
 end
 
@@ -67,7 +67,7 @@ begin
         URL: listing['given_url'],
         added_at: Time.at(listing['time_added'].to_i).iso8601,
         read_at: listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil,
-        archived: listing['status'].to_s == '1',
+        archived: listing['status'].to_s != '0',
         word_count: listing['word_count']
       ).create
     end
