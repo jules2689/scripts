@@ -12,10 +12,16 @@ class Article < Airrecord::Table
   self.table_name = Secrets.secrets['airtable_pocket_table_id']
 end
 
-def needs_update?(article, listing)
+class Tag < Airrecord::Table
+  self.api_key = Secrets.secrets['airtable_api_key']
+  self.base_key = Secrets.secrets['airtable_pocket_app_id']
+  self.table_name = "tblyayGiUi7vW27Lc"
+end
+
+def needs_update?(article, listing, tags)
   return true if article['Name']       != title_from_listing(listing)
   return true if article['Body']       != listing['excerpt']
-  return true if article['Tags']       != tags_from_listing(listing)
+  return true if article['Tags']       != tags_from_listing(listing, tags)
   return true if article['URL']        != listing['given_url']
   return true if article['read_at']    != listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil
   return true if article['archived']   != (listing['status'].to_s != '0')
@@ -23,10 +29,10 @@ def needs_update?(article, listing)
   false
 end
 
-def update_article(article, listing)
+def update_article(article, listing, tags)
   article['Name']       = title_from_listing(listing)
   article['Body']       = listing['excerpt']
-  article['Tags']       = tags_from_listing(listing)
+  article['Tags']       = tags_from_listing(listing, tags)
   article['URL']        = listing['given_url']
   article['read_at']    = listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil
   article['archived']   = listing['status'].to_s != '0'
@@ -34,8 +40,15 @@ def update_article(article, listing)
   article.save
 end
 
-def tags_from_listing(listing)
-  listing['tags'].nil? ? "" : listing['tags'].values.collect { |t| t['tag'] }.join(',')
+def tags_from_listing(listing, tags)
+  tag_names = listing['tags'].nil? ? [] : listing['tags'].values.collect { |t| t['tag'] }
+  tag_names.map do |name|
+    unless tag = tags.detect { |t| t[:name] == name }
+      tag = Tag.new(Name: name)
+      tag.create
+    end
+    tag.id
+  end
 end
 
 def title_from_listing(listing)
@@ -46,6 +59,7 @@ end
 
 SysLogger.logger.info "Starting Pocket sync with Airtable"
 
+tags = Tag.all
 current_articles = Article.all
 original_since_timestamp = ScrappyStore.read('pocket_since_timestamp', 1)
 listings = PocketApi.fetch_listings.reject { |l| l['given_url'].nil? }
@@ -53,9 +67,9 @@ listings = PocketApi.fetch_listings.reject { |l| l['given_url'].nil? }
 begin
   listings.each_with_index do |listing, idx|
     if article = current_articles.detect { |a| a[:pocketid] == listing['item_id'] }
-      next unless needs_update?(article, listing)
+      next unless needs_update?(article, listing, tags)
       SysLogger.logger.info "[UPDATE] #{title_from_listing(listing)} - #{listing['given_url']} - (#{idx + 1}/#{listings.count})"
-      update_article(article, listing)
+      update_article(article, listing, tags)
     else
       SysLogger.logger.info "[CREATE] #{title_from_listing(listing)} - #{listing['given_url']} - (#{idx + 1}/#{listings.count})"
       Article.new(
@@ -63,7 +77,7 @@ begin
         Name: title_from_listing(listing),
         Image: listing['images'].nil? ? [] : listing['images'].values.collect { |i| { url: i['src'] } },
         Body: listing['excerpt'],
-        Tags: tags_from_listing(listing),
+        Tags: tags_from_listing(listing, tags),
         URL: listing['given_url'],
         added_at: Time.at(listing['time_added'].to_i).iso8601,
         read_at: listing['read_at'].to_i > 0 ? Time.at(listing['read_at'].to_i).iso8601 : nil,
