@@ -10,6 +10,7 @@ class Restaurant < Airrecord::Table
   self.table_name = Secrets.secrets["airtable_restaurant_table_id"]
 end
 
+SysLogger.logger.info "Starting restaurant geocode sync with Airtable"
 Restaurant.all.each do |restaurant|
   if restaurant['attemptedToGeocode']
     next

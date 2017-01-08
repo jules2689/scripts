@@ -12,6 +12,8 @@ class Article < Airrecord::Table
   self.table_name = Secrets.secrets['airtable_pocket_table_id']
 end
 
+SysLogger.logger.info "Starting Pocket sync with Airtable"
+
 current_articles = Article.all
 original_since_timestamp = ScrappyStore.read('pocket_since_timestamp', 1)
 listings = PocketApi.fetch_listings.reject { |l| l['given_url'].nil? }
