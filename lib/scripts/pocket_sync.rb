@@ -41,6 +41,7 @@ end
 def title_from_listing(listing)
   return listing['resolved_title'] unless listing['resolved_title'].nil? || listing['resolved_title'] == ''
   return listing['given_title'] unless listing['given_title'].nil? || listing['given_title'] == ''
+  listing['given_url']
 end
 
 SysLogger.logger.info "Starting Pocket sync with Airtable"
