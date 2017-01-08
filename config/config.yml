@@ -1,3 +1,6 @@
 - 
   name: 'airtable_geocode_sync.rb'
   schedule: "*/10 * * * *"
+- 
+  name: 'pocket_sync.rb'
+  schedule: "*/10 * * * *"
