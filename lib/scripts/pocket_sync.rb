@@ -5,7 +5,6 @@ require_relative 'helpers/sys_logger'
 require_relative 'helpers/secrets'
 require_relative 'helpers/pocket_api'
 require 'airrecord'
-require 'byebug'
 
 class Article < Airrecord::Table
   self.api_key = Secrets.secrets['airtable_api_key']
