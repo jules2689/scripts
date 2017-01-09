@@ -130,7 +130,7 @@ articles_to_schedule = articles.reject { |a| a[:archived] || a[:scheduled_at] }
 SysLogger.logger.info "#{articles_to_schedule.size} article(s) to schedule"
 
 # Partition the articles to schedule
-part = SchedulePartitioner.new(articles_to_schedule, 3000, 3)
+part = SchedulePartitioner.new(articles_to_schedule, 1500, 3)
 part.partition
 
 # Candidate dates are all dates over the next 180 days

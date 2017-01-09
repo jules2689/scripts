@@ -19,16 +19,25 @@ class SchedulePartitioner
 
   def partition
     @articles.each do |article|
-      minimum_bucket << article
+      minimum_bucket(article['read_time']) << article
     end
   end
 
-  def minimum_bucket
-    candidate_buckets = @buckets.reject { |bucket| value_of_bucket(bucket) >= @max_value || bucket.size >= @max_size }
+  def minimum_bucket(value_to_add)
+    candidate_buckets = @buckets.reject do |bucket|
+      # Already over max bucket size
+      value_of_bucket(bucket) >= @max_value ||
+      # Too many articles
+      bucket.size >= @max_size ||
+      # Would go over size too much (unless this is the only article)
+      (!bucket.empty? && value_of_bucket(bucket) + value_to_add >= @max_value + 300)
+    end
+
     if candidate_buckets.empty?
       @buckets << []
-      candidate_buckets = [@buckets.last]
+      candidate_buckets = @buckets
     end
+
     candidate_buckets.min_by { |bucket| value_of_bucket(bucket) }
   end
 
