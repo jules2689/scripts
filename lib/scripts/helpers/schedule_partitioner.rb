@@ -1,11 +1,12 @@
 class SchedulePartitioner
   attr_accessor :buckets
+  DEFAULT_VALUE = 300
 
-  def initialize(articles, max_value, max_size)
-    @articles = articles.sort_by { |v| -v['read_time'] }
+  def initialize(articles, prefilled_buckets: [], max_value:, max_size:)
+    @articles = articles.sort_by { |v| v['read_time'].to_i > 0 ? -v['read_time'].to_i : -DEFAULT_VALUE }
     @max_value = max_value
     @max_size = max_size
-    @buckets = []
+    @buckets = prefilled_buckets
   end
 
   def to_h
@@ -19,7 +20,7 @@ class SchedulePartitioner
 
   def partition
     @articles.each do |article|
-      minimum_bucket(article['read_time']) << article
+      minimum_bucket(article['read_time'].to_i) << article
     end
   end
 
@@ -30,7 +31,7 @@ class SchedulePartitioner
       # Too many articles
       bucket.size >= @max_size ||
       # Would go over size too much (unless this is the only article)
-      (!bucket.empty? && value_of_bucket(bucket) + value_to_add >= @max_value + 300)
+      (!bucket.empty? && value_of_bucket(bucket) + value_to_add >= @max_value + DEFAULT_VALUE)
     end
 
     if candidate_buckets.empty?
@@ -42,6 +43,6 @@ class SchedulePartitioner
   end
 
   def value_of_bucket(bucket)
-    bucket.collect { |v| v["read_time"] }.inject(&:+) || 0
+    bucket.collect { |v| v["read_time"].to_i > 0 ? v['read_time'].to_i : DEFAULT_VALUE }.inject(&:+) || 0
   end
 end
