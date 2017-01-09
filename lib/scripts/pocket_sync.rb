@@ -4,6 +4,7 @@ require 'time'
 require_relative 'helpers/sys_logger'
 require_relative 'helpers/secrets'
 require_relative 'helpers/pocket_api'
+require_relative 'helpers/schedule_partitioner'
 require 'airrecord'
 
 class Article < Airrecord::Table
@@ -120,4 +121,38 @@ rescue => e
   ScrappyStore.write('pocket_since_timestamp', original_since_timestamp)
   SysLogger.logger.error "#{e.class} => #{e.message}"
 end
+
+# Schedule Articles
+SysLogger.logger.info 'Scheduling all articles'
+articles = Article.all
+scheduled_dates = articles.collect { |a| a[:scheduled_at] ? a[:scheduled_at].to_i : nil }.reject(&:nil?)
+articles_to_schedule = articles.reject { |a| a[:archived] || a[:scheduled_at] }
+SysLogger.logger.info "#{articles_to_schedule.size} article(s) to schedule"
+
+# Partition the articles to schedule
+part = SchedulePartitioner.new(articles_to_schedule, 3000, 3)
+part.partition
+
+# Candidate dates are all dates over the next 180 days
+start_date = Date.today
+candidate_dates = (0..180).to_a.map { |d| (start_date + d).to_date }
+
+# Iterating through the bucket, find the dates that aren't currently taken
+# Once an appropriate date is found, update all articles for that bucket to reflect it
+part.to_h.each do |_, bucket|
+  SysLogger.logger.info "Scheduling #{bucket[:items].size} articles with an estimated read time of #{bucket[:value] / 60}min"
+
+  candidate_dates.each do |date|
+    candidate_dates -= [date]
+    next if scheduled_dates.include?(date.to_time.to_i)
+
+    SysLogger.logger.info "Scheduling for #{date}"
+    bucket[:items].each do |article|
+      article['scheduled_at'] = date
+      article.save
+    end
+    break
+  end
+end
+
 SysLogger.logger.info 'Finished Sync'
