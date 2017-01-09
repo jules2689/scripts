@@ -6,11 +6,9 @@ require_relative 'helpers/secrets'
 require_relative 'helpers/pocket_api'
 require_relative 'helpers/schedule_partitioner'
 require_relative 'airtable/article'
-require_relative 'airtable/tag'
 
 class PocketToAirtable
   def initialize
-    @tags = Tag.all
     @articles = Article.all
   end
 
@@ -21,24 +19,25 @@ class PocketToAirtable
     begin
       listings.each_with_index do |listing, idx|
         article = @articles.detect { |a| a[:pocketid] == listing['item_id'] }
-        tag_ids = tags_from_listing(listing)
-
-        if listing['status'].to_s == '2' # Pocket API indicates this as "deleted"
+        # Pocket API indicates this as "deleted"
+        if listing['status'].to_s == '2'
           next if article.nil?
           SysLogger.logger.info "[DELETE] #{listing['item_id']} - (#{idx + 1}/#{listings.count})"
           article.destroy
-        elsif article.nil? # We have no article currently, so create one
-          SysLogger.logger.info "[CREATE] #{listing['item_id']} - #{title_from_listing(listing)} - (#{idx + 1}/#{listings.count})"
-          Article.create_article(listing, tag_ids)
-        else # Otherwise, we have one and it needs updating
+        # We have no article currently, so create one
+        elsif article.nil?
+          SysLogger.logger.info "[CREATE] #{listing['item_id']} - #{listing['given_url']} - (#{idx + 1}/#{listings.count})"
+          Article.create_article(listing)
+        # Otherwise, we have one and it needs updating
+        else
           next unless article['time_updated'].to_time.to_i != listing['time_updated'].to_i
-          SysLogger.logger.info "[UPDATE] #{listing['item_id']} - #{title_from_listing(listing)} - (#{idx + 1}/#{listings.count})"
-          Article.update_article(article, listing, tag_ids)
+          SysLogger.logger.info "[UPDATE] #{listing['item_id']} - #{listing['given_url']} - (#{idx + 1}/#{listings.count})"
+          Article.update_article(article, listing)
         end
       end
     rescue => e
       ScrappyStore.write('pocket_since_timestamp', original_since_timestamp)
-      SysLogger.logger.error "#{e.class} => #{e.message}"
+      SysLogger.logger.error "#{e.class} => #{e.message}\n#{e.backtrace.join("\n")}"
     end
   end
 
@@ -66,50 +65,6 @@ class PocketToAirtable
 
   private
 
-  def tags_from_listing(listing)
-    tag_names = listing['tags'].nil? ? [] : listing['tags'].values.collect { |t| t['tag'] }
-    tag_names.map do |name|
-      unless tag = @tags.detect { |t| t[:name] == name }
-        tag = Tag.new(Name: name)
-        tag.create
-      end
-      tag.id
-    end
-  end
-
-  def title_from_listing(listing)
-    return listing['resolved_title'] unless listing['resolved_title'].nil? || listing['resolved_title'].strip == ''
-    return listing['given_title'] unless listing['given_title'].nil? || listing['given_title'].strip == ''
-    listing['given_url']
-  end
-
-  def images_from_listing(listing)
-    listing['images'].nil? ? [] : listing['images'].values.collect { |i| { url: i['src'] } }
-  end
-
-  # Read time is based on the average reading speed of an adult (roughly 275 WPM).
-  # We take the total word count of a post and translate it into minutes.
-  # Then, we add 12 seconds for each inline image.
-
-  # Additional notes:
-  # Our original read time calculation was geared toward “slow” images, like comics,
-  # where you would really want to sit down and invest in the image.
-  # This resulted in articles with crazy big read times. For instance,
-  # this article containing 140 images was clocking in at a whopping 87 minute read.
-  # So we amended our read time calculation to count 12 seconds for the first image, 11 for the second,
-  # and minus an additional second for each subsequent image.
-  # Any images after the tenth image are counted at three seconds.
-  def estimated_read_time(listing)
-    seconds_for_words = listing['word_count'].to_i / 275 * 60
-    images_count = images_from_listing(listing).size
-
-    # x refers to the first 9 images and is used to calculate the combined total of (12 + 11 + 10 ...)
-    # every image after 10 counts as 3 seconds, hence the second part of the equation
-    x = [images_count, 10].min
-    seconds_for_images = (12.5 * x - 0.5 * x**2) + [0, images_count - 10].max * 3
-    seconds_for_words + seconds_for_images
-  end
-
   def schedule_parition(partition)
     # Candidate dates are all dates over the next 180 days
     start_date = Date.today
@@ -123,7 +78,8 @@ class PocketToAirtable
       if article_with_date = bucket[:items].detect { |b| !b[:scheduled_at].nil? }
         # This was a pre-filled bucket, so assign the same date to everything else
         bucket[:items].each do |article|
-          article['scheduled_at'] = Time.at(article_with_date[:scheduled_at].to_i).to_date
+          next unless article['scheduled_at'].nil?
+          article['scheduled_at'] = article_with_date['scheduled_at'].strftime("%Y/%m/%d")
           article.save
         end
       else
