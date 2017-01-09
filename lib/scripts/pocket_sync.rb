@@ -58,7 +58,7 @@ class PocketToAirtable
     scheduled_articles = scheduled_articles.group_by { |a| a[:scheduled_at].to_i }
 
     # Partition the articles to schedule
-    partition = SchedulePartitioner.new(articles_to_schedule, prefilled_buckets: scheduled_articles.values, max_value: 1500, max_size: 2)
+    partition = SchedulePartitioner.new(articles_to_schedule, prefilled_buckets: scheduled_articles.values, max_value: 1500, max_size: 1)
     partition.partition
     schedule_parition(partition)
   end
