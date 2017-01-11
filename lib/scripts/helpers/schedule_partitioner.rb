@@ -32,13 +32,17 @@ class SchedulePartitioner
   # There is a max value set at initialization and a max size for the entries in a bucket
   # We can go over the max value by a little bit to help
   def minimum_bucket(value_to_add)
-    candidate_buckets = @buckets.reject do |bucket|
-      # Already over max bucket size
-      value_of_bucket(bucket) >= @max_value ||
-      # Too many articles
-      bucket.size >= @max_size ||
-      # Would go over size too much (unless this is the only article)
-      (!bucket.empty? && value_of_bucket(bucket) + value_to_add >= @max_value + DEFAULT_VALUE)
+    candidate_buckets = if @max_size == 1
+      @buckets.select(&:empty?)
+    else
+      @buckets.reject do |bucket|
+        # Already over max bucket size
+        value_of_bucket(bucket) >= @max_value ||
+        # Too many articles
+        bucket.size >= @max_size ||
+        # Would go over size too much (unless this is the only article)
+        (!bucket.empty? && value_of_bucket(bucket) + value_to_add >= @max_value + DEFAULT_VALUE)
+      end
     end
 
     # If we have no candidate buckets, we've exhausted all current buckets, so add another
