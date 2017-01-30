@@ -7,3 +7,4 @@ gem 'byebug'
 gem 'daemons' # Install on host
 gem 'remote_syslog_logger' # Install on host
 gem 'airrecord'
+gem 'nokogiri'

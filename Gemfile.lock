@@ -22,11 +22,14 @@ GEM
     faraday (0.10.0)
       multipart-post (>= 1.2, < 3)
     i18n (0.7.0)
+    mini_portile2 (2.1.0)
     multipart-post (2.0.0)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
+    nokogiri (1.7.0.1)
+      mini_portile2 (~> 2.1.0)
     rake (12.0.0)
     remote_syslog_logger (1.0.3)
       syslog_protocol
@@ -45,7 +48,8 @@ DEPENDENCIES
   capistrano-bundler (~> 1.2)
   daemons
   ejson
+  nokogiri
   remote_syslog_logger
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
