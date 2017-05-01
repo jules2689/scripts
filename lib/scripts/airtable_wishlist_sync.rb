@@ -7,8 +7,6 @@ require_relative 'wishlist/generic'
 require_relative 'wishlist/shopify'
 require 'airrecord'
 
-require 'byebug'
-
 class WishlistItem < Airrecord::Table
   self.api_key = Secrets.secrets["airtable_api_key"]
   self.base_key = Secrets.secrets["airtable_wishlist_app_id"]
