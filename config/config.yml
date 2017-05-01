@@ -3,7 +3,7 @@
   schedule: "*/30 * * * *"
 - 
   name: 'airtable_wishlist_sync.rb'
-  schedule: "20,50 * * * *"
+  schedule: "*/10 * * * *"
 - 
   name: 'medium_feed_sync.rb'
   schedule: "*/30 * * * *"
