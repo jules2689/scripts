@@ -13,11 +13,17 @@ module Wishlist
         json = JSON.parse(response.body)
 
         query_parts = uri.query.split('&').map { |q| q.split('=') }
-        variant_id = query_parts.select { |q| q.first == 'variant' }.last.to_i
-        variant = variant_id ? json['product']['variants'][variant_id] : json['product']['variants'].first
+        variant_id = query_parts.select { |q| q.first == 'variant' }.first.last.to_i
+        variant = if variant_id
+          json['product']['variants'].select { |v| v['id'] == variant_id }.first
+        else
+          json['product']['variants'].first
+        end
 
         image = if variant_id
-          i = j['product']['images'].select { |i| i['variant_ids'].include?(variant_id) }
+          i = json['product']['images'].select do |i|
+            i['variant_ids'].include?(variant_id)
+          end
           i.first['src'] unless i.empty?
         end
         image ||= json['product']['images'].first['src']
