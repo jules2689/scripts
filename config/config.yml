@@ -12,4 +12,4 @@
   schedule: "*/10 * * * *"
 -
   name: 'nexus_check.rb'
-  schedule: "45 18 * * *"
+  schedule: "40 18 * * *"
