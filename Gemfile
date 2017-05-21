@@ -9,3 +9,4 @@ gem 'remote_syslog_logger' # Install on host
 gem 'airrecord'
 gem 'nokogiri'
 gem 'metainspector'
+gem 'mechanize'

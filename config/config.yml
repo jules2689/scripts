@@ -10,3 +10,6 @@
 - 
   name: 'pocket_sync.rb'
   schedule: "*/10 * * * *"
+-
+  name: 'nexus_check.rb'
+  schedule: "45 18 * * *"
