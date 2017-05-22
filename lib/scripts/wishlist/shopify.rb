@@ -12,12 +12,14 @@ module Wishlist
         response = Net::HTTP.get_response(URI.parse(request_url))
         json = JSON.parse(response.body)
 
-        query_parts = uri.query.split('&').map { |q| q.split('=') }
-        variant_id = query_parts.select { |q| q.first == 'variant' }.first.last.to_i
-        variant = if variant_id
-          json['product']['variants'].select { |v| v['id'] == variant_id }.first
-        else
-          json['product']['variants'].first
+        if uri.query
+          query_parts = uri.query.split('&').map { |q| q.split('=') }
+          variant_id = query_parts.select { |q| q.first == 'variant' }.first.last.to_i
+          variant = if variant_id
+            json['product']['variants'].select { |v| v['id'] == variant_id }.first
+          else
+            json['product']['variants'].first
+          end
         end
 
         image = if variant_id
