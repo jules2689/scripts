@@ -2,7 +2,7 @@ require_relative 'helpers/push_bullet'
 require_relative 'helpers/sys_logger'
 
 def notify(reminder, body)
-  SysLogger.logger.info "=> Sending to push bullet"
+  SysLogger.logger.info "=> Sending to push bullet (#{reminder})"
   if PushBullet.send(reminder, body)
     SysLogger.logger.info "=> Successfully sent"
   else
