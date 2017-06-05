@@ -13,3 +13,9 @@
 -
   name: 'nexus_check.rb'
   schedule: "0 16 * * *"
+-
+  name: 'reminder.rb'
+  schedule: "0 19 */2 * *"
+  arguments:
+    - "Cat Litter"
+    - "Clean the cat litter"

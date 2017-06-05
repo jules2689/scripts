@@ -47,7 +47,9 @@ namespace :deploy do
       yaml_config.each do |script|
         if script.key?('schedule')
           script_path = "#{current_path}/lib/scripts/#{script['name']}"
-          cron_lines << "#{script['schedule']} /usr/local/bin/ruby #{script_path} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
+          args = script['arguments'] || ""
+          args = "'#{[args].flatten.join("' '")}'" if args
+          cron_lines << "#{script['schedule']} /usr/local/bin/ruby #{script_path} #{args} 1> #{shared_path}/log/#{script['name']}.log 2>&1"
         elsif script.key?('background')
           reboot_scripts << [script, "#{current_path}/lib/scripts/#{script['name']}"]
         end
