@@ -19,3 +19,9 @@
   arguments:
     - "Cat Litter"
     - "Clean the cat litter"
+-
+  name: 'reminder.rb'
+  schedule: "0 14 */2 * *"
+  arguments:
+    - "Cat Food"
+    - "Fill the Cat Food"
