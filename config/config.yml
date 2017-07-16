@@ -5,9 +5,6 @@
   name: 'airtable_wishlist_sync.rb'
   schedule: "*/10 * * * *"
 - 
-  name: 'medium_feed_sync.rb'
-  schedule: "*/30 * * * *"
-- 
   name: 'pocket_sync.rb'
   schedule: "*/10 * * * *"
 -
